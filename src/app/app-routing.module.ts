@@ -4,6 +4,7 @@ import { RhLayoutComponent } from './layouts/rh-layout/rh-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'rh', pathMatch: 'full' },
   {path:'rh',component:RhLayoutComponent,
   children:[
     {path:'',loadChildren:()=>import('./views/rh-views/dashboard/dashboard.module').then(m=>m.DashboardModule)},
