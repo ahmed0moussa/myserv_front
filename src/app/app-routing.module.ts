@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { RhLayoutComponent } from './layouts/rh-layout/rh-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
 const routes: Routes = [
+  
+  {path:'login',component:AuthLayoutComponent},
   { path: '', redirectTo: 'rh', pathMatch: 'full' },
   {path:'rh',component:RhLayoutComponent,
   children:[
@@ -20,6 +24,7 @@ const routes: Routes = [
     {path:'listcandidate/:type',loadChildren:()=>import('./views/common-views/list-candidate/list-candidate.module').then(m=>m.ListCandidateModule)}
   ]
   } 
+  
   
 ];
 

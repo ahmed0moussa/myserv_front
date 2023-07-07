@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { AddCandidateRoutingModule } from './add-candidate-routing.module';
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 
@@ -11,7 +11,8 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
   ],
   imports: [
     CommonModule,
-    AddCandidateRoutingModule
+    AddCandidateRoutingModule,
+    FormsModule
   ]
 })
 export class AddCandidateModule { }

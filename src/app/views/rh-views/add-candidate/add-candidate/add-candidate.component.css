@@ -1,0 +1,21 @@
+.custom-file-label {
+    position: absolute;
+    top: 90px; 
+    right: 15px;
+    left: 15px;
+    z-index: 1;
+}
+.btn{
+
+     border: 2px solid #24b4fb;
+    background-color: #24b4fb;
+    border-radius: 0.9em;
+    padding: 0.8em 1.2em 0.8em 1em;
+    transition: all ease-in-out 0.2s;
+    font-size: 16px;
+    width: 50%;
+       
+}
+.btn:hover {
+    background-color: #0071e2;
+   }
