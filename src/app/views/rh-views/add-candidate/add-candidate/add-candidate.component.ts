@@ -10,12 +10,12 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AddCandidateComponent {
   
   constructor(private formBuilder:FormBuilder){}
-  addconditateForm!:FormGroup
+  addcandidateForm!:FormGroup
   submitted=false
   selectedFileName: string | undefined;
  
   ngOnInit(){
-    this.addconditateForm=this.formBuilder.group({
+    this.addcandidateForm=this.formBuilder.group({
       lastName:['',Validators.required],
       firstName:['',Validators.required],
       date:['',[Validators.required, this.minDateValidator()]],
@@ -38,7 +38,7 @@ export class AddCandidateComponent {
   }
   onSubmit() {
     this.submitted=true
-    if(this.addconditateForm.invalid){
+    if(this.addcandidateForm.invalid){
       return
     }
   }
