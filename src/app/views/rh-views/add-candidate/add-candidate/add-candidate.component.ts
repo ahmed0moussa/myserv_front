@@ -14,8 +14,10 @@ export class AddCandidateComponent {
     time: '',
     file: null
   };
-
- 
+  selectedFileName: string | undefined;
+  isLastNameInvalid(): boolean {
+    return this.candidate.lastname === '' || this.candidate.lastname == null;
+  }
   
     
   addCandidate(f:NgForm){
@@ -26,10 +28,15 @@ export class AddCandidateComponent {
       // You can use services or HTTP requests to handle the form submission
     }
   }
-  uploadedFiles: File[] = [];
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.uploadedFiles.push(file);
-  }
+ 
+    
+  
+    onFileSelected(event: Event) {
+      const fileInput = event.target as HTMLInputElement;
+      if (fileInput.files && fileInput.files.length > 0) {
+        this.selectedFileName = fileInput.files[0].name;
+      } else {
+        this.selectedFileName = '';
+      }
+    }
 }
