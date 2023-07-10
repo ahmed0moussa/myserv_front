@@ -2,7 +2,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Ajout candidat</h1>
     </div>
-    <form #f="ngForm" (ngSubmit)="addCandidate(f)">
+    <form #f="ngForm" [formGroup]="addconditateForm" (ngSubmit)="onSubmit()">
         <div class="row">
             
                 <div class="col-lg-6">
@@ -16,32 +16,39 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="lastname">Nom</label>
-                                    <input type="text" class="form-control" id="lasttname" ngModel [(ngModel)]="candidate.lastname" placeholder="Nom candidat" required>
-                                    <div class="alert alert-danger mt-1" role="alert" *ngIf="isLastNameInvalid() ">
-                                        nom de comdidat obligatoir
-                                      </div>
+                                    <input type="text" class="form-control"  formControlName="lastName" [ngClass]="{'is-invalid':submitted&&addconditateForm.controls['lastName'].errors}" placeholder="Nom candidat" required>
+                                    <div *ngIf="submitted && addconditateForm.controls['lastName'].errors" class="text-danger mt-1">
+                                        nom obligatoir
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="firstname">Prenom</label>
-                                    <input type="text" class="form-control" id="firstname"  placeholder="Prenom candidat"ngModel required [(ngModel)]="candidate.name"
-                                    #name="ngModel" [ngClass]="{'is-invalid': name.errors?.['required'] && (name.dirty || name.touched),
-                                                                'is-valid': name.valid && (name.dirty || name.touched || f.submitted)}">
-                                        <div class="alert-danger" *ngIf="name.errors?.['required'] && name.touched">Name is required.</div>
+                                    <input type="text" class="form-control" placeholder="Prenom candidat" formControlName="firstName" [ngClass]="{'is-invalid':submitted&&addconditateForm.controls['firstName'].errors}" required >
+                                    <div *ngIf="submitted && addconditateForm.controls['firstName'].errors" class="text-danger mt-1">
+                                        prenom obligatoir
+                                    </div>
                                      
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="date">Date d'entretien</label>
-                                        <input type="date" class="form-control" id="date" required>
+                                        <input type="date" class="form-control"  formControlName="date" [ngClass]="{'is-invalid':submitted&&addconditateForm.controls['date'].errors&& addconditateForm.controls['date'].errors['minDate']}" required>
+                                        <div *ngIf="submitted && addconditateForm.controls['date'].errors&& addconditateForm.controls['date'].errors['minDate']" class="text-danger mt-1">
+                                            date de l'entretien obligatoire et date future
+                                        </div>
+                                        
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="time">Heure d'entretien</label>
-                                        <input type="time" class="form-control" id="time" required>
+                                        <input type="time" class="form-control"  formControlName="time" [ngClass]="{'is-invalid':submitted&&addconditateForm.controls['time'].errors}" required>
+                                        <div *ngIf="submitted && addconditateForm.controls['time'].errors" class="text-danger mt-1">
+                                            time de entretien obligatoir
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="post">Postes</label>
-                                    <select class="custom-select"  required>
+                                    <select class="custom-select" formControlName="post" [ngClass]="{'is-invalid':submitted&&addconditateForm.controls['post'].errors}" required>
                                         <option selected disabled value="">Choisissez le poste</option>
                                             <option value="1">Réseau & Sécurité</option>
                                             <option value="2">DevOps & Cloud & Systéme</option>
@@ -49,7 +56,9 @@
                                             <option value="4">Développeur Full Stack</option>
                                             <option value="5">Consultant SAP-ERP</option>
                                     </select>
-                                    
+                                    <div *ngIf="submitted && addconditateForm.controls['post'].errors" class="text-danger mt-1">
+                                        post obligatoire
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -62,9 +71,13 @@
                             </div>
                             <div class="card-body">  
                                 <div class="form-group py-3">
-                                    <input type="file" class="custom-file-input" id="customFile" (change)="onFileSelected($event)">
+                                    <input type="file" class="custom-file-input" id="customFile" (change)="onFileSelected($event)" formControlName="file"
+                                    [ngClass]="{'is-invalid': submitted && addconditateForm.controls['file'].errors}">
                                     <label class="custom-file-label" for="customFile">{{ selectedFileName || 'Choose file' }}</label>
-                                </div> 
+                                </div>
+                                <div class="text-danger mt-1" *ngIf="submitted && addconditateForm.controls['file'].errors">
+                                    post obligatoire
+                                </div>
                             </div>
                         </div>
                     </div>

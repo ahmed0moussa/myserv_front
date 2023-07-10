@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-candidate',
@@ -7,27 +8,42 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./add-candidate.component.css']
 })
 export class AddCandidateComponent {
-  candidate = {
-    name: '',
-    lastname: '',
-    date: '',
-    time: '',
-    file: null
-  };
+  
+  constructor(private formBuilder:FormBuilder){}
+  addconditateForm!:FormGroup
+  submitted=false
   selectedFileName: string | undefined;
-  isLastNameInvalid(): boolean {
-    return this.candidate.lastname === '' || this.candidate.lastname == null;
+ 
+  ngOnInit(){
+    this.addconditateForm=this.formBuilder.group({
+      lastName:['',Validators.required],
+      firstName:['',Validators.required],
+      date:['',[Validators.required, this.minDateValidator()]],
+      time:['',Validators.required],
+      post:['', Validators.required],
+      file:['', Validators.required]
+
+    })
+    
   }
   
-    
-  addCandidate(f:NgForm){
-    console.log(f)
-    if (f.valid) {
-      // Perform form submission logic here
-      console.log('Form submitted:', this.candidate);
-      // You can use services or HTTP requests to handle the form submission
+  
+  minDateValidator() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set the time to 00:00:00
+    return (control: { value: string | number | Date; }) => {
+      const selectedDate = new Date(control.value);
+      return selectedDate >= today ? null : { minDate: true };
+    };
+  }
+  onSubmit() {
+    this.submitted=true
+    if(this.addconditateForm.invalid){
+      return
     }
   }
+    
+ 
  
     
   
