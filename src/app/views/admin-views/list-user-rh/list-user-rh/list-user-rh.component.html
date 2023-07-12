@@ -1,1 +1,80 @@
-<p>list-user-rh works!</p>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Suivi Les Recruteur</h1>
+   
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Les Recruteur</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nom & Prenom</th>
+                            <th>Email</th>
+                            <th>mot de passe
+                                <span (click)="togglePasswordVisibility()">
+                                    <span [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></span>
+                                  </span>
+                            </th>
+                            <th>action</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td><input type="text" class="form-control"  [value]="item.name" [disabled]="item.isDisabled"></td>
+                            <td><input type="email" class="form-control"  [value]="item.email" [disabled]="item.isDisabled"></td>
+                            <td><div class="form-group help">
+                                <input class="form-control" id="inputPassword3" type="{{ showPassword ? 'text' : 'password' }}"  [value]="item.password" [disabled]="item.isDisabled">
+                                
+                            </div></td>
+                            <td>
+                                <ul class="list-inline m-0">
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-primary btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="sauvegarder" (click)="save(item)" [disabled]="item.isDisabled"><i class="fa fa-table"></i></button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-success btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit" (click)="edit(item)"></i></button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-danger btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="Supprimer" data-toggle="modal" data-target="#exampleModal" (click)="delete(item)"><i class="fa fa-trash"></i></button>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- /.container-fluid -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div class="container d-flex pl-0"><img src="https://imgur.com/Kh1gwTq.png"><h5 class="modal-title ml-2" id="exampleModalLabel">Supprimer cet utilisateur?</h5></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted">Si vous supprimez cet utilisateur, il sera perdu pour toujours. Êtes-vous sûr de vouloir continuer ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-danger">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>

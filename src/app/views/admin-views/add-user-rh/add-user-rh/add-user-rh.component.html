@@ -1,1 +1,60 @@
-<p>add-user-rh works!</p>
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Ajout compte rh</h1>
+    </div>
+   <form >
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Donné de rh</h6>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="lastname">Nom</label>
+                                <input type="text" class="form-control"  formControlName="lastName"  placeholder="Nom rh" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="lastname">Prenom</label>
+                                <input type="text" class="form-control"  formControlName="firstName"  placeholder="Prenom rh" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control"  formControlName="email"  placeholder="Email" required>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="password">mot de passe</label>
+                                <input type="password" class="form-control"  formControlName="password"  placeholder="mot de passe" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="cpassword">confirme mot de passe</label>
+                                <input type="text" class="form-control"  formControlName="cpassword"  placeholder="confirme mot de passe" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center mt-4">
+                        <div class="col-lg-12">
+                            <button type="submit" class="btn btn-primary " >Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </form>
+</div>
