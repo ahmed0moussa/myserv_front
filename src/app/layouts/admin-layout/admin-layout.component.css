@@ -3,3 +3,6 @@
     background-image: linear-gradient(180deg,#4096E9 10%,#25E0FA 130%);
     background-size: cover;
 }
+#collapseUtilities:hover{
+    display: block;
+}

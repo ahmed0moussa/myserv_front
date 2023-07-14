@@ -24,82 +24,19 @@
                     </thead>
                     <tbody>
                         
-                        <tr>
-                            <td>Chakib BOUCHEMLA</td>
-                            <td>6/7/2023</td>
-                            <td><span class="badge badge-pill badge-primary">validé RH</span></td>
-                            <td>Profil moyen, nul en anglais </td>
-                            <td>Sawssen HASSAYOUNE</td>
+                        <tr *ngFor="let entretien of listeEntretien">
+                            <td>{{entretien.nom}} {{entretien.prenom}}</td>
+                            <td>{{entretien.datecreation}}</td>
+                            <td><span class="badge badge-pill badge-primary">{{entretien.feedback?.nom}}</span></td>
+                            <td>{{entretien.commentaire}}</td>
+                            <td>{{entretien.recruteur}}</td>
                             <td>
                                 <button class="view-more ">
                                     <span>Voir plus</span>
                                 </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Chakib BOUCHEMLA</td>
-                            <td>6/7/2023</td>
-                            <td><span class="badge badge-pill badge-secondary">pas encore</span></td>
-                            <td>Profil moyen, nul en anglais </td>
-                            <td>Sawssen HASSAYOUNE</td>
-                            
-                            <td>
-                                <button class="view-more ">
-                                    <span>Voir plus</span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Chakib BOUCHEMLA</td>
-                            <td>6/7/2023</td>
-                            <td><span class="badge badge-pill badge-danger">Non validé RH</span></td>
-                            <td>Profil moyen, nul en anglais </td>
-                            <td>Sawssen HASSAYOUNE</td>
-                            
-                            <td>
-                                <button class="view-more ">
-                                    <span>Voir plus</span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Chakib BOUCHEMLA</td>
-                            <td>6/7/2023</td>
-                            <td><span class="badge badge-pill badge-info">validé tech</span></td>
-                            <td>Profil moyen, nul en anglais </td>
-                            <td>Sawssen HASSAYOUNE</td>
-                            <td>
-                                <button class="view-more ">
-                                    <span>Voir plus</span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Chakib BOUCHEMLA</td>
-                            <td>6/7/2023</td>
-                            <td><span class="badge badge-pill badge-danger">Non validé tech</span></td>
-                            <td>Profil moyen, nul en anglais </td>
-                            <td>Sawssen HASSAYOUNE</td>
-                            
-                            <td>
-                                <button class="view-more ">
-                                    <span>Voir plus</span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Chakib BOUCHEMLA</td>
-                            <td>6/7/2023</td>
-                            <td><span class="badge badge-pill badge-success">Recruté</span></td>
-                            <td>Profil moyen, nul en anglais </td>
-                            <td>Sawssen HASSAYOUNE</td>
-                            
-                            <td>
-                                <button class="view-more ">
-                                    <span>Voir plus</span>
-                                </button>
-                            </td>
-                        </tr>
+                      
                         
                     </tbody>
                 </table>
