@@ -55,11 +55,13 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">les postes:</h6>
-                        <a class="collapse-item" routerLink="listcandidate/Réseau & Sécurité">Réseau & Sécurité</a>
-                        <a class="collapse-item" routerLink="listcandidate/DevOps & Cloud & Systéme">DevOps & Cloud & Systéme</a>
+                        <div *ngFor="let specialite of listeSpecialite">
+                        <a class="collapse-item" routerLink="listcandidate/{{specialite.nom}}/{{specialite.id}}" >{{specialite.nom}}</a>
+                        </div>
+                        <!-- <a class="collapse-item" routerLink="listcandidate/DevOps & Cloud & Systéme">DevOps & Cloud & Systéme</a>
                         <a class="collapse-item" routerLink="listcandidate/Data Ing-Data Scientist">Data Ing-Data Scientist</a>
                         <a class="collapse-item" routerLink="listcandidate/Développeur Full Stack">Développeur Full Stack</a>
-                        <a class="collapse-item" routerLink="listcandidate/Consultant SAP-ERP">Consultant SAP-ERP</a>
+                        <a class="collapse-item" routerLink="listcandidate/Consultant SAP-ERP">Consultant SAP-ERP</a> -->
                     </div>
                 </div>
             </li>
@@ -177,7 +179,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" routerLink="/login" data-dismiss="modal">Logout</a>
+                    <a class="btn btn-primary"  (click)="logout()" data-dismiss="modal">Logout</a>
                 </div>
             </div>
         </div>

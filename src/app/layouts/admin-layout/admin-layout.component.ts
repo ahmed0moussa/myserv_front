@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { loggedin } from 'src/app/services/models/loggedin';
 import { AuthService } from 'src/app/services/service/auth.service';
+import { SpecialiteService  } from 'src/app/services/service/specialite.service';
+import { Specialite } from 'src/app/services/models/specialite';
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
@@ -9,9 +11,11 @@ import { AuthService } from 'src/app/services/service/auth.service';
 })
 export class AdminLayoutComponent implements OnInit{
   connectedUser: loggedin = {};
+  listeSpecialite: Array<Specialite> = []
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService,private specialiteService: SpecialiteService ) {}
   ngOnInit(): void {
+    this.findListEntretien()
     this.connectedUser = this.auth.getConnectedUser();
     $(document).ready(() => {
       $('#sidebarToggle, #sidebarToggleTop').on('click', function(e) {
@@ -55,6 +59,13 @@ export class AdminLayoutComponent implements OnInit{
   data = JSON.parse(localStorage.getItem('token')!!);
   logout() {
     this.auth.logOut();
+  }
+  findListEntretien(): void {
+    this.specialiteService.findall().subscribe(Specialite => {
+      this.listeSpecialite = Specialite;
+      
+      
+    });
   }
 
 }

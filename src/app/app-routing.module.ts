@@ -32,7 +32,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'listcandidate/:type',
+        path: 'listcandidate/:type/:idtype',
         loadChildren: () =>
           import(
             './views/common-views/list-candidate/list-candidate.module'
@@ -67,7 +67,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'listcandidate/:type',
+        path: 'listcandidate/:type/:idtype',
         loadChildren: () =>
           import(
             './views/common-views/list-candidate/list-candidate.module'

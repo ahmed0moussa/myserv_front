@@ -1,12 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { loggedin } from 'src/app/services/models/loggedin';
+import { AuthService } from 'src/app/services/service/auth.service';
+import { SpecialiteService  } from 'src/app/services/service/specialite.service';
+import { Specialite } from 'src/app/services/models/specialite';
 @Component({
   selector: 'app-rh-layout',
   templateUrl: './rh-layout.component.html',
   styleUrls: ['./rh-layout.component.css']
 })
 export class RhLayoutComponent implements OnInit{
+  connectedUser: loggedin = {};
+  listeSpecialite: Array<Specialite> = []
+  constructor(private auth: AuthService,private specialiteService: SpecialiteService ) {}
   ngOnInit(): void {
+    this.findListEntretien()
+    this.connectedUser = this.auth.getConnectedUser();
     $(document).ready(() => {
       $('#sidebarToggle, #sidebarToggleTop').on('click', function(e) {
         $('body').toggleClass('sidebar-toggled');
@@ -43,6 +52,17 @@ export class RhLayoutComponent implements OnInit{
         }
       });
 
+    
+    });
+  }
+  data = JSON.parse(localStorage.getItem('token')!!);
+  logout() {
+    this.auth.logOut();
+  }
+  findListEntretien(): void {
+    this.specialiteService.findall().subscribe(Specialite => {
+      this.listeSpecialite = Specialite;
+      
       
     });
   }
