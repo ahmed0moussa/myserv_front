@@ -2,7 +2,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Ajout candidat</h1>
     </div>
-    <form #f="ngForm" [formGroup]="addcandidateForm" (ngSubmit)="onSubmit()">
+    <form #f="ngForm" [formGroup]="addcandidateForm" (ngSubmit)="onSubmit(f)">
         <div class="row">
             
                 <div class="col-lg-6">
@@ -50,11 +50,7 @@
                                     <label for="post">Postes</label>
                                     <select class="custom-select" formControlName="post" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['post'].errors}" required>
                                         <option selected disabled value="">Choisissez le poste</option>
-                                            <option value="1">Réseau & Sécurité</option>
-                                            <option value="2">DevOps & Cloud & Systéme</option>
-                                            <option value="3">Data Ing-Data Scientist</option>
-                                            <option value="4">Développeur Full Stack</option>
-                                            <option value="5">Consultant SAP-ERP</option>
+                                        <option *ngFor="let specialite of listeSpecialite" [value]="specialite.id">{{ specialite.nom }}</option>
                                     </select>
                                     <div *ngIf="submitted && addcandidateForm.controls['post'].errors" class="text-danger mt-1">
                                         post obligatoire

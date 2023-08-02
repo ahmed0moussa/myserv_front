@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Specialite } from 'src/app/services/models/specialite';
+import { SpecialiteService  } from 'src/app/services/service/specialite.service';
+import { EntretienService } from 'src/app/services/service/entretien.service';
 @Component({
   selector: 'app-add-candidate',
   templateUrl: './add-candidate.component.html',
@@ -9,12 +11,18 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class AddCandidateComponent {
   
-  constructor(private formBuilder:FormBuilder){}
+  
+  constructor(private formBuilder:FormBuilder,private entretienService: EntretienService,private specialiteService: SpecialiteService ){
+  }
+    
   addcandidateForm!:FormGroup
   submitted=false
   selectedFileName: string | undefined;
- 
+  listeSpecialite: Array<Specialite> = []
+
   ngOnInit(){
+    
+    this.findListSpecialite();
     this.addcandidateForm=this.formBuilder.group({
       lastName:['',Validators.required],
       firstName:['',Validators.required],
@@ -36,14 +44,37 @@ export class AddCandidateComponent {
       return selectedDate >= today ? null : { minDate: true };
     };
   }
-  onSubmit() {
-    this.submitted=true
-    if(this.addcandidateForm.invalid){
-      return
+  onSubmit(f:any) {
+    this.submitted = true;
+    console.log(f.form.value)
+    const entretienData = {
+      ...f.value,
+      feedbackId: '64b1af43128f38495981525a',
+      specialite: f.form.value.post,
+      // ... add other properties as needed
+    };
+    
+    if (f.valid) {
+      // Call your service to save the candidate
+      this.entretienService.save(entretienData).subscribe(
+        (data) => {
+          // Handle success, e.g., show a success message or redirect.
+          console.log('Candidate saved successfully', data);
+        },
+        (error) => {
+          // Handle error, e.g., display an error message.
+          console.error('Error while saving candidate', error);
+        }
+      );
     }
   }
     
- 
+  findListSpecialite(): void {
+    this.specialiteService.findall().subscribe(Specialite => {
+      this.listeSpecialite = Specialite;
+      console.log(this.listeSpecialite)
+    });
+  }
  
     
   

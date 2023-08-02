@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { ListCandidateRoutingModule } from './list-candidate-routing.module';
 import { ListCandidateComponent } from './list-candidate/list-candidate.component';
 import {DataTablesModule} from 'angular-datatables'
@@ -12,7 +12,8 @@ import {DataTablesModule} from 'angular-datatables'
   imports: [
     CommonModule,
     ListCandidateRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    FormsModule
   ]
 })
 export class ListCandidateModule { }

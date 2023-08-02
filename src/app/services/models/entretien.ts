@@ -1,4 +1,5 @@
 import { Feedback } from './feedback';
+import { loggedin } from './loggedin';
 import { Specialite } from './specialite';
 
 export interface Entretien {
@@ -6,9 +7,10 @@ export interface Entretien {
   nom?: string;
   prenom?: string;
   datecreation?: string;
-  datemodif?: string;
+  date?: string;
+  time?: string;
   commentaire?: string;
-  recruteur?: string;
+  recruteur?: loggedin;
   specialite?: Specialite;
   feedback?: Feedback;
   loadFileId?: string;

@@ -10,9 +10,15 @@
             <h6 class="m-0 font-weight-bold text-primary">{{typePost}}</h6>
         </div>
         <div class="card-body">
+            <div class="form-group row justify-content-end mr-1">                 
+                <label for="Search" class="col-form-label control-label mr-1">Search</label>
+                <div class="col-ato">
+                <input #InputRef type="text" (input)="getIput(InputRef.value)" class="form-control" placeholder="Search" >
+              </div>
+            </div>
             <div class="table-responsive">
-                <table datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" id="DataTables_Table_0" class="table table-bordered display"  width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered display"  width="100%" cellspacing="0">
+                    <thead>   
                         <tr>
                             <th>Nom & Prenom</th>
                             <th>date d'entretien</th>
@@ -28,18 +34,20 @@
                             <td>{{entretien.nom}} {{entretien.prenom}}</td>
                             <td>{{entretien.datecreation}}</td>
                             <td><span class="badge badge-pill " [ngClass]="{
-                                'badge-primary': entretien.feedback?.nom === 'validé rh',
-                                'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé tech',
+                                'badge-primary': entretien.feedback?.nom === 'Validé RH',
+                                'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé TECH',
                                 'badge-success': entretien.feedback?.nom === 'Recruté',
-                                'badge-info': entretien.feedback?.nom === 'validé tech',
-                                'badge-secondary': entretien.feedback?.nom ==='en coure'
+                                'badge-info': entretien.feedback?.nom === 'Validé TECH',
+                                'badge-secondary': entretien.feedback?.nom ==='En coure'
                               }">{{entretien.feedback?.nom}}</span></td>
                             <td>{{entretien.commentaire}}</td>
-                            <td>{{entretien.recruteur}}</td>
+                            <td>{{entretien.recruteur?.lastName}} {{entretien.recruteur?.firstName}}</td>
                             <td>
-                                <button class="view-more ">
-                                    <span>Voir plus</span>
-                                </button>
+                                
+                                    <button class="view-more " (click)="goToCompterendu(entretien.id!)">
+                                        <span>Voir plus</span>
+                                    </button>
+                                
                             </td>
                         </tr>
                       

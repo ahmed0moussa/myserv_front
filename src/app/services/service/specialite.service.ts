@@ -8,6 +8,7 @@ import { Specialite } from '../models/specialite';
 export class SpecialiteService {
   baseurl = 'http://localhost:8080/api/v1/specialite/';
   specialite: Specialite[] = [];
+  precedent: any;
 
   constructor(private Http: HttpClient) {}
 

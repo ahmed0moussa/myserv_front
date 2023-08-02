@@ -38,6 +38,13 @@ const routes: Routes = [
             './views/common-views/list-candidate/list-candidate.module'
           ).then((m) => m.ListCandidateModule),
       },
+      {
+        path: 'compterendu/:idcandidate',
+        loadChildren: () =>
+          import(
+            './views/common-views/compte-rendu/compte-rendu.module'
+          ).then((m) => m.CompteRenduModule),
+      },
     ],
   },
   {
@@ -72,6 +79,13 @@ const routes: Routes = [
           import(
             './views/common-views/list-candidate/list-candidate.module'
           ).then((m) => m.ListCandidateModule),
+      },
+      {
+        path: 'compterendu/:idcandidate',
+        loadChildren: () =>
+          import(
+            './views/common-views/compte-rendu/compte-rendu.module'
+          ).then((m) => m.CompteRenduModule),
       },
     ],
   },

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpParams} from '@angular/common/http';
 import { Entretien } from '../models/entretien';
+import { Specialite } from '../models/specialite';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { Entretien } from '../models/entretien';
 export class EntretienService {
   baseurl = 'http://localhost:8080/api/v1/entretien/';
   entretien: Entretien[] = [];
+  specialite: Specialite[] = [];
 
   constructor(private Http: HttpClient) {}
 
@@ -20,5 +22,8 @@ export class EntretienService {
   }
   save(model: any) {
     return this.Http.post<Entretien>(this.baseurl + 'create', model);
+  }
+  precedent(specialiteId: string) {
+    return this.Http.get<Specialite>(this.baseurl + specialiteId);
   }
 }

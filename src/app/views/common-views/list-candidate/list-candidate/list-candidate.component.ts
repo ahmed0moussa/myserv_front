@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {  Component, Renderer2, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EntretienService } from 'src/app/services/service/entretien.service';
 import { Entretien } from 'src/app/services/models/entretien';
-import { Subject } from 'rxjs';
+import { get } from 'jquery';
+
 
 
 @Component({
@@ -11,46 +12,34 @@ import { Subject } from 'rxjs';
   styleUrls: ['./list-candidate.component.css']
 })
 
-export class ListCandidateComponent implements OnInit,OnDestroy,OnChanges {
-  dtoptions:DataTables.Settings={};
+export class ListCandidateComponent implements OnInit {
+  
   listeEntretien: Array<Entretien> = []
+  filteredListeEntretien: Array<Entretien> = [];
   errorMsg = ''
   typePost = ''
   idPost=''
-  dtTrigger:Subject<any>=new Subject<any>();
-  dataTable: any;
+  valueSearch=''
 
-  constructor(private route:ActivatedRoute,private entretienService: EntretienService){
+  constructor(private routing:Router,private route:ActivatedRoute,private entretienService: EntretienService,private renderer: Renderer2){
     this.route.params.subscribe(data=>{
       console.log('constructor')
       this.typePost=data['type']
       this.idPost=data['idtype']
-      this.findListEntretien(); // Call the method when idPost changes
-      const newIdPost: string = data['idtype'];
-      if (this.idPost !== newIdPost) {
-        this.idPost = newIdPost;
-        this.destroyDataTable(); // Destroy the DataTable before reinitializing
-        this.findListEntretien(); // Call the method when idPost changes
-        this.clearData();
-      }
+      
+      this.findListEntretien();
+       // Call the method when idPost changes
+       
     })
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.destroyDataTable();
-    this.clearData();
-    console.log('ngOnChanges')
+  getIput(Input: string){
+    this.valueSearch=Input;
+    console.log(this.valueSearch)
+    this.filterWithInput()
   }
-  ngOnDestroy(): void {
-    this.destroyDataTable();
-    this.clearData();
-    console.log('ngOnDestroy')
-    
-    
-  }
+  
   ngOnInit(): void {
-    this.dtoptions={
-      pagingType:'simple_numbers'
-    }
+   
    
   }
   
@@ -58,24 +47,28 @@ export class ListCandidateComponent implements OnInit,OnDestroy,OnChanges {
     this.entretienService.findbyspecialite(this.idPost).subscribe(entretien => {
       this.listeEntretien = entretien ;
       console.log(entretien)
-      this.dtTrigger.next(null);
-      setTimeout(() => {
-        this.initializeDataTable(); // Initialize DataTable after updating the data
-      });
+      
+      
+      
     });
   }
-  initializeDataTable(): void {
-    this.dataTable = $('#DataTables_Table_0').DataTable(this.dtoptions);
-  }
-  destroyDataTable(): void {
-    if (this.dataTable) {
-      this.dataTable.clear().destroy();
-      this.dataTable.search('');
-      $.fn.dataTable.ext.errMode = 'none';
-      this.dataTable = null;
+  filterWithInput(){
+    
+    if(this.valueSearch===''){
+      this.findListEntretien();
+    }else{
+      const searchValue =  this.valueSearch.trim().toLowerCase();
+      this.filteredListeEntretien = this.listeEntretien.filter(entretien =>
+        (entretien.nom && entretien.nom.toLowerCase().includes(searchValue)) ||
+        (entretien.prenom && entretien.prenom.toLowerCase().includes(searchValue)) ||
+        (entretien.feedback?.nom && entretien.feedback.nom.toLowerCase().includes(searchValue)) ||
+        (entretien.commentaire && entretien.commentaire.toLowerCase().includes(searchValue))
+      );
+      console.log(this.filteredListeEntretien)
     }
   }
-  clearData(): void {
-    this.listeEntretien = []; // Clear the data array
+  goToCompterendu(_idcanditate : string){
+    this.routing.navigate(['compterendu/'+_idcanditate])
+
   }
 }

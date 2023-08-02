@@ -8,6 +8,7 @@ import {
   catchError,
   map,
   of,
+  throwError,
 } from 'rxjs';
 import { Router } from '@angular/router';
 import { loggedin } from '../models/loggedin';
@@ -44,8 +45,9 @@ export class AuthService {
           return true;
         }),
         catchError((error) => {
-          console.log(error);
-          return of(false);
+          console.log(error.error.message);
+          const errorMessage = error.error.message || 'An unknown error occurred';
+          return throwError(errorMessage);
         })
       );
   }

@@ -14,8 +14,9 @@ export class RhLayoutComponent implements OnInit{
   listeSpecialite: Array<Specialite> = []
   constructor(private auth: AuthService,private specialiteService: SpecialiteService ) {}
   ngOnInit(): void {
-    this.findListEntretien()
+    this.findListSpecialite()
     this.connectedUser = this.auth.getConnectedUser();
+    
     $(document).ready(() => {
       $('#sidebarToggle, #sidebarToggleTop').on('click', function(e) {
         $('body').toggleClass('sidebar-toggled');
@@ -56,14 +57,13 @@ export class RhLayoutComponent implements OnInit{
     });
   }
   data = JSON.parse(localStorage.getItem('token')!!);
+  
   logout() {
     this.auth.logOut();
   }
-  findListEntretien(): void {
+  findListSpecialite(): void {
     this.specialiteService.findall().subscribe(Specialite => {
       this.listeSpecialite = Specialite;
-      
-      
     });
   }
 }

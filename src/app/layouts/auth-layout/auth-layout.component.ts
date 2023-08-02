@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit , ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { error } from 'jquery';
 import { LoginModel } from 'src/app/services/models/login-model';
 
 import { AuthService } from 'src/app/services/service/auth.service';
@@ -12,11 +14,12 @@ import { AuthService } from 'src/app/services/service/auth.service';
 export class AuthLayoutComponent implements OnInit {
   password!: string;
   showPassword: boolean = false;
+  errorMessage!: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,private cd: ChangeDetectorRef) {}
 
   loginForm: LoginModel = {
-    username: '',
+    email: '',
     password: '',
   };
 
@@ -35,7 +38,13 @@ export class AuthLayoutComponent implements OnInit {
           this.router.navigateByUrl('/');
         }
       }
-    });
+    }, (error) => {
+      this.errorMessage = error; 
+      this.cd.detectChanges();
+    }
+    );
+    
+    
   }
 
   togglePasswordVisibility() {
