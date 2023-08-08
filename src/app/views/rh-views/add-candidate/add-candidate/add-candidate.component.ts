@@ -4,6 +4,8 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Specialite } from 'src/app/services/models/specialite';
 import { SpecialiteService  } from 'src/app/services/service/specialite.service';
 import { EntretienService } from 'src/app/services/service/entretien.service';
+import { HttpHeaders } from '@angular/common/http';
+import { Entretien } from 'src/app/services/models/entretien';
 @Component({
   selector: 'app-add-candidate',
   templateUrl: './add-candidate.component.html',
@@ -45,24 +47,19 @@ export class AddCandidateComponent {
     };
   }
   onSubmit(f:any) {
+    
     this.submitted = true;
-    console.log(f.form.value)
-    const entretienData = {
-      ...f.value,
-      feedbackId: '64b1af43128f38495981525a',
-      specialite: f.form.value.post,
-      // ... add other properties as needed
-    };
+    const entretiendata: Entretien = f.form.value;
+    const specialite: any = f.form.value.post;
+    
     
     if (f.valid) {
-      // Call your service to save the candidate
-      this.entretienService.save(entretienData).subscribe(
+      console.log(f.form.value)
+      this.entretienService.save(entretiendata,specialite).subscribe(
         (data) => {
-          // Handle success, e.g., show a success message or redirect.
           console.log('Candidate saved successfully', data);
         },
         (error) => {
-          // Handle error, e.g., display an error message.
           console.error('Error while saving candidate', error);
         }
       );

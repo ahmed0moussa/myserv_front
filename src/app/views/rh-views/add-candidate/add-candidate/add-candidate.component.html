@@ -50,7 +50,7 @@
                                     <label for="post">Postes</label>
                                     <select class="custom-select" formControlName="post" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['post'].errors}" required>
                                         <option selected disabled value="">Choisissez le poste</option>
-                                        <option *ngFor="let specialite of listeSpecialite" [value]="specialite.id">{{ specialite.nom }}</option>
+                                        <option *ngFor="let specialite of listeSpecialite" [value]="specialite.id">{{specialite.nom}}</option>
                                     </select>
                                     <div *ngIf="submitted && addcandidateForm.controls['post'].errors" class="text-danger mt-1">
                                         post obligatoire
