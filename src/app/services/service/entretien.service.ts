@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpParams} from '@angular/common/http';
+import { HttpClient , HttpHeaders, HttpParams} from '@angular/common/http';
 import { Entretien } from '../models/entretien';
 import { Specialite } from '../models/specialite';
 
@@ -13,7 +13,7 @@ export class EntretienService {
   specialite: Specialite[] = [];
 
   constructor(private Http: HttpClient) {}
-
+  headers = new HttpHeaders();
   findall() {
     return this.Http.get<Entretien[]>(this.baseurl + 'all');
   }
@@ -21,8 +21,10 @@ export class EntretienService {
     
     return this.Http.get<Entretien[]>(`http://localhost:8080/api/v1/entretien/specialite?specialiteId=${specialiteid}`);
   }
+
   save(model: Entretien,specialite:any) {
-    return this.Http.post<Entretien>(this.baseurl + 'create/'+specialite, model);
+ 
+    return this.Http.post<Entretien>(this.baseurl + 'create?specialite='+specialite, model);
   }
   precedent(specialiteId: string) {
     return this.Http.get<Specialite>(this.baseurl + specialiteId);

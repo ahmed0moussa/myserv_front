@@ -31,7 +31,7 @@
                     <tbody>
                         
                         <tr *ngFor="let entretien of listeEntretien">
-                            <td>{{entretien.nom}} {{entretien.prenom}}</td>
+                            <td>{{entretien.lastName}} {{entretien.firstName}}</td>
                             <td>{{entretien.datecreation}}</td>
                             <td><span class="badge badge-pill " [ngClass]="{
                                 'badge-primary': entretien.feedback?.nom === 'Validé RH',

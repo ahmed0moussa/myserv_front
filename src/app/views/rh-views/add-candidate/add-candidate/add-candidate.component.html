@@ -32,8 +32,8 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="date">Date d'entretien</label>
-                                        <input type="date" class="form-control"  formControlName="date" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['date'].errors&& addcandidateForm.controls['date'].errors['minDate']}" required>
-                                        <div *ngIf="submitted && addcandidateForm.controls['date'].errors&& addcandidateForm.controls['date'].errors['minDate']" class="text-danger mt-1">
+                                        <input type="date" class="form-control"  formControlName="datecreation" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['datecreation'].errors&& addcandidateForm.controls['datecreation'].errors['minDate']}" required>
+                                        <div *ngIf="submitted && addcandidateForm.controls['datecreation'].errors&& addcandidateForm.controls['datecreation'].errors['minDate']" class="text-danger mt-1">
                                             date de l'entretien obligatoire et date future
                                         </div>
                                         

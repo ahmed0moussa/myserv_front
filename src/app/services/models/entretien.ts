@@ -4,8 +4,8 @@ import { Specialite } from './specialite';
 
 export interface Entretien {
   id?: string;
-  nom?: string;
-  prenom?: string;
+  lastName?: string;
+  firstName?: string;
   datecreation?: string;
   date?: string;
   time?: string;

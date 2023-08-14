@@ -4,7 +4,7 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Specialite } from 'src/app/services/models/specialite';
 import { SpecialiteService  } from 'src/app/services/service/specialite.service';
 import { EntretienService } from 'src/app/services/service/entretien.service';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Entretien } from 'src/app/services/models/entretien';
 @Component({
   selector: 'app-add-candidate',
@@ -28,7 +28,7 @@ export class AddCandidateComponent {
     this.addcandidateForm=this.formBuilder.group({
       lastName:['',Validators.required],
       firstName:['',Validators.required],
-      date:['',[Validators.required, this.minDateValidator()]],
+      datecreation:['',[Validators.required, this.minDateValidator()]],
       time:['',Validators.required],
       post:['', Validators.required],
       file:['', Validators.required]
@@ -51,10 +51,9 @@ export class AddCandidateComponent {
     this.submitted = true;
     const entretiendata: Entretien = f.form.value;
     const specialite: any = f.form.value.post;
-    
-    
+
     if (f.valid) {
-      console.log(f.form.value)
+      
       this.entretienService.save(entretiendata,specialite).subscribe(
         (data) => {
           console.log('Candidate saved successfully', data);

@@ -59,8 +59,8 @@ export class ListCandidateComponent implements OnInit {
     }else{
       const searchValue =  this.valueSearch.trim().toLowerCase();
       this.filteredListeEntretien = this.listeEntretien.filter(entretien =>
-        (entretien.nom && entretien.nom.toLowerCase().includes(searchValue)) ||
-        (entretien.prenom && entretien.prenom.toLowerCase().includes(searchValue)) ||
+        (entretien.lastName && entretien.lastName.toLowerCase().includes(searchValue)) ||
+        (entretien.firstName && entretien.firstName.toLowerCase().includes(searchValue)) ||
         (entretien.feedback?.nom && entretien.feedback.nom.toLowerCase().includes(searchValue)) ||
         (entretien.commentaire && entretien.commentaire.toLowerCase().includes(searchValue))
       );
