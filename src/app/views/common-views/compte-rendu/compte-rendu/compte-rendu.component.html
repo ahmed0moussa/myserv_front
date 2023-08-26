@@ -8,23 +8,29 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="row">
-                        <div class=" form-group col-md-4">
+                        <div class=" form-group col-md-4" >
                             <label for="Postes">Postes</label>
-                            <input type="text" class="form-control" disabled>
+                            <input type="text" class="form-control"  [value]="entretien.specialite?.nom"  disabled>
                         </div>
                         <div class=" form-group col-md-4">
                             <label for="Postes">feedback</label>
-                            <span class="form-control badge badge-pill badge-primary">validé rh</span>
+                            <span class="form-control badge badge-pill " [ngClass]="{
+                                'badge-primary': entretien.feedback?.nom === 'Validé RH',
+                                'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé TECH',
+                                'badge-success': entretien.feedback?.nom === 'Recruté',
+                                'badge-info': entretien.feedback?.nom === 'Validé TECH',
+                                'badge-secondary': entretien.feedback?.nom ==='En coure'
+                              }">{{entretien.feedback?.nom}}</span>
                         </div>
                         <div class=" form-group col-md-4">
                             <label for="Recruteur">Recruteur</label>
-                            <input type="text" class="form-control" disabled>
+                            <input type="text" class="form-control" disabled [value]="entretien.recruteur?.lastName+' '+entretien.recruteur?.firstName">
                         </div>
                     </div>
                     <div class="row">
                         <div class=" form-group col-md-4">
                             <label for="dateen">Date du premier entretien</label>
-                            <input type="date" class="form-control" disabled>
+                            <input type="date" class="form-control" [value]="entretien.datecreation" disabled>
                         </div>
                         <div class=" form-group col-md-4">
                             <label for="dateen">Date d'entretien</label>
@@ -32,13 +38,13 @@
                         </div>
                         <div class=" form-group col-md-4">
                             <label for="time">Heure d'entretien</label>
-                            <input type="time" class="form-control">
+                            <input type="time" class="form-control" [value]="entretien.time">
                         </div>
                     </div>
                     <div class="row">
                         <div class=" form-group col-md-12">
                             <label for="comment">Commentaire RH</label>
-                            <textarea   rows="5" class="form-control"></textarea>
+                            <textarea   rows="5" class="form-control" [value]="entretien.commentaire"></textarea>
                             
                         </div>
                     </div>
@@ -47,14 +53,15 @@
                 <div class="col-md-3">
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
+                        <a [href]="entretien.file">
                         <img
                         class="img-account-profile mb-2 "
                         src=" ../../../assets/template/img/cv.jpg"
-                        width="200px" height="300px">
+                        width="200px" height="300px"></a>
                         <div class="row position-relative">
                             <!-- Profile picture upload button-->
                             <input type="file" class="custom-file-input" id="customFile" (change)="oncvSelected($event)" formControlName="file" >
-                            <label class="custom-file-label" for="customFile">{{ selectedcvName || 'Choose file' }}</label>
+                            <label class="custom-file-label" for="customFile">{{ selectedcvName || entretien.file|| 'Choose file' }}</label>
                         </div>
                         
                         
@@ -118,12 +125,12 @@
                          <!-- Form Group (last name)-->
                          <div class="col-md-6">
                              <label class="small mb-1" for="inputLastName">Nom</label>
-                             <input class="form-control"  type="text" placeholder="nom" value="">
+                             <input class="form-control"  type="text" placeholder="nom" [value]="entretien.lastName">
                          </div>
                          <!-- Form Group (first name)-->
                          <div class="col-md-6">
                              <label class="small mb-1" for="inputFirstName">Prenom</label>
-                             <input class="form-control"  type="text" placeholder="prenom" value="">
+                             <input class="form-control"  type="text" placeholder="prenom" [value]="entretien.firstName">
                          </div>
                          
                      </div>
@@ -301,11 +308,10 @@
                     <h6 class="m-0 font-weight-bold text-primary">Questionnaire TECH</h6>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row" *ngFor="let questionT of listequestionTECH">
                         <div class="col">
                           <div class=" form-group">
-                            <label class="black">Q1. ?
-                                 </label>
+                            <label class="black">{{ questionT.textQuestion }}</label><input class="d-none" type="text" [value]="questionT.id" >
                             <textarea class="form-control" cols="30" rows="3" placeholder="" ></textarea>
                           </div>
                         </div>
@@ -319,6 +325,30 @@
                     <h6 class="m-0 font-weight-bold text-primary">feedback</h6>
                 </div>
                 <div class="card-body">
+                    <div class="row" >
+                        <div class="col">
+                          <div class=" form-group">
+                            <label class="black"></label>
+                            <select class="custom-select" formControlName="post" >
+                                        <option *ngFor="let feedback of listeFeedBack" [value]="feedback.id"
+                                        [ngClass]="{
+                                            'badge-primary': feedback.nom === 'Validé RH',
+                                            'badge-danger': feedback.nom === 'Non validé RH' || feedback.nom === 'Non validé TECH',
+                                            'badge-success': feedback.nom === 'Recruté',
+                                            'badge-info': feedback.nom === 'Validé TECH',
+                                            'badge-secondary': feedback.nom ==='En coure'
+                                          }" [selected]="entretien.feedback?.nom === feedback.nom">{{feedback.nom}} </option>
+                                    </select>
+                          </div>
+                        </div>
+                        
+                            <div class="col ">
+                                <div class=" form-group">
+                                    <button type="submit" class="btn btn-primary " >Enregistrer</button>
+                                </div>
+                          </div>
+                        
+                    </div>
                     
                 </div>
             </div>

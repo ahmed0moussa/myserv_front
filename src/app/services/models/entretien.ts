@@ -13,5 +13,5 @@ export interface Entretien {
   recruteur?: loggedin;
   specialite?: Specialite;
   feedback?: Feedback;
-  loadFileId?: string;
+  file?: string;
 }

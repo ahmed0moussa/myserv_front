@@ -11,6 +11,7 @@ export class EntretienService {
   baseurl = 'http://localhost:8080/api/v1/entretien/';
   entretien: Entretien[] = [];
   specialite: Specialite[] = [];
+  
 
   constructor(private Http: HttpClient) {}
   headers = new HttpHeaders();
@@ -29,4 +30,11 @@ export class EntretienService {
   precedent(specialiteId: string) {
     return this.Http.get<Specialite>(this.baseurl + specialiteId);
   }
+  findbyId(idCanditate:string) {
+  
+    return this.Http.get<Entretien>(this.baseurl+'findbyid?id='+idCanditate)
+
+  }
+
+ 
 }

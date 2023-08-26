@@ -1,4 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Entretien } from 'src/app/services/models/entretien';
+import { Feedback } from 'src/app/services/models/feedback';
+import { QuestionTECH } from 'src/app/services/models/question-tech.model';
+
+import { CvFileService } from 'src/app/services/service/cv-file.service';
+import { EntretienService } from 'src/app/services/service/entretien.service';
+import { FeedBackService } from 'src/app/services/service/feedback.service';
+import { QuestionTECHService } from 'src/app/services/service/question-tech.service';
 
 @Component({
   selector: 'app-compte-rendu',
@@ -6,12 +15,33 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./compte-rendu.component.css']
 })
 export class CompteRenduComponent {
+  
   ImageUrl: string | ArrayBuffer | null = null;
   selectedFileName: string | undefined;
   selectedcvName: string | undefined;
   captionText: string | undefined;
+  entretien: Entretien = {};
+  listequestionTECH: any;
   @ViewChild('myModal') modalRef!: ElementRef;
- 
+  idcanditate!:string
+  listeFeedBack: Array<Feedback> = []
+  
+  constructor(private route:ActivatedRoute,
+    private entretienService: EntretienService,
+     private cvFileService :CvFileService,
+     private questionTECHService: QuestionTECHService,
+     private feedBackService:FeedBackService
+      ){
+    this.route.params.subscribe(data=>{
+      
+      this.idcanditate=data['idcandidate']
+      
+      this.findListFeedback();
+      this.findEntretienbyId(this.idcanditate);
+       
+       
+    })
+  }
   
 
   readURL(input: any): void {
@@ -61,6 +91,7 @@ export class CompteRenduComponent {
       this.selectedcvName = '';
     }
   }
+
   
 
   openModal() {
@@ -71,10 +102,34 @@ export class CompteRenduComponent {
     this.captionText = img.alt;
     modal.style.display = 'block';
   }
-
+  findEntretienbyId(idCanditate:string){
+    this.entretienService.findbyId(idCanditate).subscribe(entretien => {
+      this.entretien = entretien || {};
+      console.log(entretien)
+      if (entretien.specialite && entretien.specialite.id) {
+      const specialiteId =entretien.specialite.id
+      
+      this.questionTECHService.findBySpecialite(specialiteId).subscribe(questionTECH => {
+      this.listequestionTECH = questionTECH ;
+      
+      for (let i = 0; i < this.listequestionTECH.length; i++) {
+        this.listequestionTECH[i].textQuestion = `Q${i + 1} . ${this.listequestionTECH[i].textQuestion}`;
+      }
+    });
+  }
+    });
+  }
+  findListFeedback(): void {
+    this.feedBackService.findall().subscribe(FeedBack => {
+      this.listeFeedBack = FeedBack;
+      
+      
+    });
+  }
   closeModal() {
     const modal = this.modalRef.nativeElement as HTMLElement;
     modal.style.display = 'none';
   }
+
 }
 

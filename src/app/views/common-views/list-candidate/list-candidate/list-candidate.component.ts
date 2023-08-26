@@ -46,8 +46,6 @@ export class ListCandidateComponent implements OnInit {
   findListEntretien(): void {
     this.entretienService.findbyspecialite(this.idPost).subscribe(entretien => {
       this.listeEntretien = entretien ;
-      console.log(entretien)
-      
       
       
     });

@@ -2,7 +2,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Ajout candidat</h1>
     </div>
-    <form #f="ngForm" [formGroup]="addcandidateForm" (ngSubmit)="onSubmit(f)">
+    <form #f="ngForm" [formGroup]="addcandidateForm" (ngSubmit)="onSubmit(f) " enctype="multipart/form-data">
         <div class="row">
             
                 <div class="col-lg-6">
@@ -67,11 +67,11 @@
                             </div>
                             <div class="card-body">  
                                 <div class="form-group py-3">
-                                    <input type="file" class="custom-file-input" id="customFile" (change)="onFileSelected($event)" formControlName="file"
-                                    [ngClass]="{'is-invalid': submitted && addcandidateForm.controls['file'].errors}">
-                                    <label class="custom-file-label" for="customFile">{{ selectedFileName || 'Choose file' }}</label>
+                                    <input type="file" #fileInput class="custom-file-input" id="customFile" (change)="onFileSelected($event)" formControlName="cv"
+                                    [ngClass]="{'is-invalid': submitted && addcandidateForm.controls['cv'].errors}">
+                                    <label class="custom-file-label" for="customFile">{{ selectedFileName || 'Choose cv' }}</label>
                                 </div>
-                                <div class="text-danger mt-1" *ngIf="submitted && addcandidateForm.controls['file'].errors">
+                                <div class="text-danger mt-1" *ngIf="submitted && addcandidateForm.controls['cv'].errors">
                                     CV obligatoire
                                 </div>
                             </div>
