@@ -7,15 +7,28 @@ import { EntretienService } from 'src/app/services/service/entretien.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Entretien } from 'src/app/services/models/entretien';
 import { CvFileService } from 'src/app/services/service/cv-file.service';
+import { ToastrService } from 'ngx-toastr';
+import { trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-candidate',
   templateUrl: './add-candidate.component.html',
-  styleUrls: ['./add-candidate.component.css']
+  styleUrls: ['./add-candidate.component.css'],
+  animations: [
+    trigger('flyInOut', [
+      // Animation configuration here
+    ]),
+  ],
 })
 export class AddCandidateComponent {
   @ViewChild('fileInput', { static: true })
   fileInput!: ElementRef<HTMLInputElement>;
-  constructor(private formBuilder:FormBuilder,private entretienService: EntretienService,private specialiteService: SpecialiteService, private cvFileService :CvFileService ){
+  constructor(private formBuilder:FormBuilder,
+    private entretienService: EntretienService,
+    private specialiteService: SpecialiteService,
+     private cvFileService :CvFileService,
+     private toastr:ToastrService,
+     private router :Router ){
   }
     
   addcandidateForm!:FormGroup
@@ -75,22 +88,27 @@ export class AddCandidateComponent {
               this.cvFileService.uploadFile(entretienId, selectedFile).subscribe(
                 (response) => {
                   console.log('Upload successful', response);
+                  
                 },
                 (error) => {
                   console.error('Upload error', error);
                 }
               );
               console.log('Candidate saved successfully', data);
+              this.toastr.success('Candidate saved successfully!', 'Success');
+                this.router.navigate(['listcandidate/'+data.specialite?.nom+'/'+data.specialite?.id])
             } else {
               console.error('No valid entretienId in the response');
             }
           },
           (error) => {
             console.error('Error while saving candidate', error);
+            this.toastr.error('Error saving data', 'Error');
           }
         );
       } else {
         console.error('No valid file selected');
+        this.toastr.warning('No valid file selected', 'Warning');
       }
     }
   }

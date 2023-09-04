@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AddUserRHRoutingModule } from './add-user-rh-routing.module';
 import { AddUserRhComponent } from './add-user-rh/add-user-rh.component';
 
@@ -11,6 +11,7 @@ import { AddUserRhComponent } from './add-user-rh/add-user-rh.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AddUserRHRoutingModule
   ]
 })

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { loggedin } from 'src/app/services/models/loggedin';
+import { RegisterService } from 'src/app/services/service/register.service';
 
 @Component({
   selector: 'app-list-user-rh',
@@ -6,24 +9,87 @@ import { Component } from '@angular/core';
   styleUrls: ['./list-user-rh.component.css']
 })
 export class ListUserRhComponent {
-  password!: string;
-  showPassword: boolean = false;
-  data = [
-    { name: 'Sawssen HASSAYOUNE', email: 'Sawssen.hassayoune@myserv.com', password: 'azerty', isDisabled: true, showPassword: false },
-    { name: 'Hanine BADRI', email: 'hanine.badri@myserv.com', password: '', isDisabled: true, showPassword: false }
-  ];
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-  edit(item: any) {
-    item.isDisabled = false;
-  }
+  submitted=false;
+  registrationForm!: FormGroup;
+  user!:any;
+  listeUser:any;
+  iduser!:string
 
-  save(item: any) {
-    item.isDisabled = true;
+  constructor(private formBuilder: FormBuilder,private registerService:RegisterService){
+    this.findall();
   }
+  ngOnInit(): void {
+    this.registrationForm = this.formBuilder.group({
+      lastName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
+      cpassword: ['', Validators.required]
+    });
+}
 
-  delete(item: any) {
-    // Perform delete operation
+  findall() {
+    this.registerService.fiddalluser().subscribe(user => {
+        this.listeUser = user;
+      
+    });
   }
+setid(iduser:string ){
+  this.iduser=iduser;
+}
+setupadateid(iduser:string) {
+  this.setid(iduser);
+  this.registerService.getUserById(this.iduser).subscribe(
+    (data)=>{
+      this.user=data;
+      console.log(this.user)
+      this.registrationForm.patchValue({
+        lastName: this.user.lastName,
+        firstName: this.user.firstName,
+        email: this.user.email,
+      });
+   
+    },
+    error => {
+      console.error('Error deleting user:', error);
+      
+    }
+  )
+}
+  delete() {
+    this.registerService.deleteUser(this.iduser).subscribe(
+      () => {
+        console.log('User deleted successfully');
+        this.findall()
+      },
+      error => {
+        console.error('Error deleting user:', error);
+        
+      }
+    );
+  }
+  onSubmit( iduser: string){
+    this.submitted = true;
+    if (this.registrationForm.valid) {
+      if (this.registrationForm.value.password !== this.registrationForm.value.cpassword) {
+        
+        this.registrationForm.get('cpassword')?.setErrors({ passwordMismatch: true });
+        return; 
+      }
+    const formData = this.registrationForm.value;
+    formData.password = this.registrationForm.value.password;
+    this.registerService.updateUser(this.iduser, formData).subscribe(
+      () => {
+        console.log('User updated successfully',formData);
+        this.findall();
+      },
+      error => {
+        console.error('Error updating user:', error);
+      }
+    );
+    
+    
+  
+  }
+}
 }

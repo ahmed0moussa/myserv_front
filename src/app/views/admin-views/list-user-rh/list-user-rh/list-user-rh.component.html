@@ -1,55 +1,52 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Suivi Les Recruteur</h1>
+    <h1 class="h3 mb-2 text-gray-800">modifier des comptes utilisateurs</h1>
    
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Les Recruteur</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Les utilisateurs</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nom & Prenom</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
                             <th>Email</th>
-                            <th>mot de passe
-                                <span (click)="togglePasswordVisibility()">
-                                    <span [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></span>
-                                  </span>
-                            </th>
+                            
+                      
                             <th>action</th>
                             
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr *ngFor="let item of data">
-                            <td><input type="text" class="form-control"  [value]="item.name" [disabled]="item.isDisabled"></td>
-                            <td><input type="email" class="form-control"  [value]="item.email" [disabled]="item.isDisabled"></td>
-                            <td><div class="form-group help">
-                                <input class="form-control" id="inputPassword3" type="{{ showPassword ? 'text' : 'password' }}"  [value]="item.password" [disabled]="item.isDisabled">
-                                
-                            </div></td>
-                            <td>
+                    
+                      <tbody>
+                          <tr *ngFor="let user of listeUser" > 
+                            
+                              <td>{{user.lastName}}</td>
+                              <td>{{user.firstName}}</td>
+                              <td>{{user.email}}</td>
+                              <!-- <td><input type="password" class="form-control"  formControlName="password"  placeholder="Mot de passe" ></td>
+                              <td><input type="password" class="form-control"  formControlName="cpassword"  placeholder="Confirme mot de passe"></td> -->
+                              <td>
                                 <ul class="list-inline m-0">
-                                    <li class="list-inline-item">
-                                        <button class="btn btn-primary btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="sauvegarder" (click)="save(item)" [disabled]="item.isDisabled"><i class="fa fa-table"></i></button>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <button class="btn btn-success btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit" (click)="edit(item)"></i></button>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <button class="btn btn-danger btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="Supprimer" data-toggle="modal" data-target="#exampleModal" (click)="delete(item)"><i class="fa fa-trash"></i></button>
-                                    </li>
+                                  <li class="list-inline-item">
+                                    <button class="btn btn-primary btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="sauvegarder" data-toggle="modal" data-target="#editModal" (click)="setupadateid(user.id)" ><i class="fa fa-table"></i></button>
+                                </li>
+                                <li class="list-inline-item">
+                                  <button class="btn btn-danger btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="Supprimer" data-toggle="modal" data-target="#deleteModal" (click)="setid(user.id)"><i class="fa fa-trash"></i></button>  
+                                </li>
                                 </ul>
-                            </td>
-                        </tr>
-                        
-                        
-                    </tbody>
+                              
+                              </td>
+                            
+                          </tr>
+                      </tbody>
+                  
                 </table>
             </div>
         </div>
@@ -58,8 +55,8 @@
 </div>
 
 <!-- /.container-fluid -->
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -73,7 +70,85 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-danger">Supprimer</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal edit -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div class="container d-flex pl-0"><h5 class="modal-title ml-2" id="exampleModalLabel">modifier cet utilisateur</h5></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="registrationForm">
+            <div class="row">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="lastname">Nom</label>
+                      <input type="text" class="form-control" [value]="user?.lastName" formControlName="lastName"  placeholder="Nom rh" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['lastName'].errors}" required>
+                      <div *ngIf="submitted && registrationForm.controls['lastName'].errors" class="text-danger mt-1">
+                          nom obligatoire
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="lastname">Prenom</label>
+                      <input type="text" class="form-control" [value]="user?.firstName" formControlName="firstName"  placeholder="Prenom rh" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['firstName'].errors}" required>
+                      <div *ngIf="submitted && registrationForm.controls['firstName'].errors" class="text-danger mt-1">
+                          prenom obligatoire
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" [value]="user?.email" formControlName="email"  placeholder="Email" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['email'].errors}" required>
+                      <div *ngIf="submitted && registrationForm.controls['email'].errors" class="text-danger mt-1">
+                          email obligatoire
+                      </div>
+                  </div>
+              </div>
+              
+          </div>
+          <div class="row">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="password">Mot de passe</label>
+                      <input type="password" class="form-control"  formControlName="password"  placeholder="Mot de passe" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['password'].errors&&registrationForm.controls['cpassword'].errors}" required>
+                      
+                      <div *ngIf="registrationForm.get('cpassword')?.hasError('passwordMismatch')" class="text-danger mt-1">
+                          Passwords do not match.
+                        </div> 
+                        <div *ngIf="submitted && registrationForm.controls['password'].errors" class="text-danger mt-1">
+                          mot de passe obligatoir et la taille doit être comprise entre 6 et 40.
+                      </div> 
+                  </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="cpassword">Confirme Mot de passe</label>
+                      <input type="password" class="form-control"  formControlName="cpassword"  placeholder="Confirme mot de passe"[ngClass]="{'is-invalid':submitted&&registrationForm.controls['cpassword'].errors&&registrationForm.controls['cpassword'].errors}" required>
+                      <div *ngIf="registrationForm.get('cpassword')?.hasError('passwordMismatch')" class="text-danger mt-1">
+                          Passwords do not match.
+                        </div>
+                  </div>
+              </div>
+          </div>
+        
+      </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary " (click)="onSubmit(user.id)" >Enregistrer</button>
         </div>
       </div>
     </div>

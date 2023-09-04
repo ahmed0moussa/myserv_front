@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="firstname">Prenom</label>
-                                    <input type="text" class="form-control" placeholder="Prenom candidat" formControlName="firstName" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['firstName'].errors}" required >
+                                    <input type="text" class="form-control"  placeholder="Prenom candidat" formControlName="firstName" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['firstName'].errors}" required >
                                     <div *ngIf="submitted && addcandidateForm.controls['firstName'].errors" class="text-danger mt-1">
                                         prenom obligatoire
                                     </div>

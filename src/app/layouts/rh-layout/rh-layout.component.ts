@@ -17,6 +17,7 @@ export class RhLayoutComponent implements OnInit{
     this.findListSpecialite()
     this.connectedUser = this.auth.getConnectedUser();
     
+    
     $(document).ready(() => {
       $('#sidebarToggle, #sidebarToggleTop').on('click', function(e) {
         $('body').toggleClass('sidebar-toggled');

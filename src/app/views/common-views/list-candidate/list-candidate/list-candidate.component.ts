@@ -2,7 +2,7 @@ import {  Component, Renderer2, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EntretienService } from 'src/app/services/service/entretien.service';
 import { Entretien } from 'src/app/services/models/entretien';
-import { get } from 'jquery';
+
 
 
 
@@ -16,6 +16,7 @@ export class ListCandidateComponent implements OnInit {
   
   listeEntretien: Array<Entretien> = []
   filteredListeEntretien: Array<Entretien> = [];
+ 
   errorMsg = ''
   typePost = ''
   idPost=''
@@ -23,14 +24,17 @@ export class ListCandidateComponent implements OnInit {
 
   constructor(private routing:Router,private route:ActivatedRoute,private entretienService: EntretienService,private renderer: Renderer2){
     this.route.params.subscribe(data=>{
-      console.log('constructor')
       this.typePost=data['type']
       this.idPost=data['idtype']
       
       this.findListEntretien();
-       // Call the method when idPost changes
+      
        
     })
+  }
+  ngOnInit(): void {
+   
+   
   }
   getIput(Input: string){
     this.valueSearch=Input;
@@ -38,10 +42,7 @@ export class ListCandidateComponent implements OnInit {
     this.filterWithInput()
   }
   
-  ngOnInit(): void {
-   
-   
-  }
+  
   
   findListEntretien(): void {
     this.entretienService.findbyspecialite(this.idPost).subscribe(entretien => {
@@ -69,4 +70,5 @@ export class ListCandidateComponent implements OnInit {
     this.routing.navigate(['compterendu/'+_idcanditate])
 
   }
+  
 }

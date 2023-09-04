@@ -17,6 +17,9 @@ import { DatePipe } from '@angular/common';
 import { AuthService } from './services/service/auth.service';
 import { ApplicationGuardService } from './services/guards/application-guard.service';
 import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
+import{ToastrModule} from 'ngx-toastr'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 library.add(fas);
 
 @NgModule({
@@ -29,6 +32,10 @@ library.add(fas);
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      
+    })
   ],
   providers: [
     ApplicationGuardService,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListUserRHRoutingModule } from './list-user-rh-routing.module';
 import { ListUserRhComponent } from './list-user-rh/list-user-rh.component';
 
@@ -11,7 +11,9 @@ import { ListUserRhComponent } from './list-user-rh/list-user-rh.component';
   ],
   imports: [
     CommonModule,
-    ListUserRHRoutingModule
+    ListUserRHRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class ListUserRHModule { }
