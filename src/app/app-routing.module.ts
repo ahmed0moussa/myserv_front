@@ -6,8 +6,13 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { AddCandidateModule } from './views/rh-views/add-candidate/add-candidate.module';
 import { ApplicationGuardService } from './services/guards/application-guard.service';
+import { CandidatureLayoutComponent } from './layouts/candidature-layout/candidature-layout.component';
 
 const routes: Routes = [
+  {
+    path: 'candidature',
+    component: CandidatureLayoutComponent,
+  },
   {
     path: 'login',
     component: AuthLayoutComponent,

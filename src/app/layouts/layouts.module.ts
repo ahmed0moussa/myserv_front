@@ -10,9 +10,10 @@ import {
   HttpClientModule,
 } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CandidatureLayoutComponent } from './candidature-layout/candidature-layout.component';
 
 @NgModule({
-  declarations: [AdminLayoutComponent, RhLayoutComponent, AuthLayoutComponent],
+  declarations: [AdminLayoutComponent, RhLayoutComponent, AuthLayoutComponent, CandidatureLayoutComponent],
   imports: [
     CommonModule,
     RouterModule,

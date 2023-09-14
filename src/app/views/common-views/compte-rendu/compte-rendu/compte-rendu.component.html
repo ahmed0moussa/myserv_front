@@ -21,7 +21,8 @@
                                 'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé TECH',
                                 'badge-success': entretien.feedback?.nom === 'Recruté',
                                 'badge-info': entretien.feedback?.nom === 'Validé TECH',
-                                'badge-secondary': entretien.feedback?.nom ==='En coure'
+                                'badge-secondary': entretien.feedback?.nom ==='En coure',
+                                'badge-light': entretien.feedback?.nom ==='N\'a pas assisté'
                               }">{{entretien.feedback?.nom}}</span>
                         </div>
                         <div class=" form-group col-md-4">
@@ -333,14 +334,15 @@
                           <div class=" form-group">
                             <label class="black"></label>
                             <select class="custom-select" formControlName="feedback" >
-                                        <option *ngFor="let feedback of listeFeedBack" [value]="feedback.id"
+                                        <option *ngFor="let feedback of listeFeedBack" [value]="feedback"
                                         [ngClass]="{
                                             'badge-primary': feedback.nom === 'Validé RH',
                                             'badge-danger': feedback.nom === 'Non validé RH' || feedback.nom === 'Non validé TECH',
                                             'badge-success': feedback.nom === 'Recruté',
                                             'badge-info': feedback.nom === 'Validé TECH',
-                                            'badge-secondary': feedback.nom ==='En coure'
-                                          }" [selected]="entretien.feedback?.nom === feedback.nom">{{feedback.nom}} </option>
+                                            'badge-secondary': feedback.nom ==='En coure',
+                                            'badge-light': feedback.nom ==='N\'a pas assisté'
+                                          }" [selected]="entretien.feedback?.nom === feedback.nom" [ngValue]="feedback">{{feedback.nom}} </option>
                                     </select>
                           </div>
                         </div>

@@ -38,7 +38,8 @@
                                 'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé TECH',
                                 'badge-success': entretien.feedback?.nom === 'Recruté',
                                 'badge-info': entretien.feedback?.nom === 'Validé TECH',
-                                'badge-secondary': entretien.feedback?.nom ==='En coure'
+                                'badge-secondary': entretien.feedback?.nom ==='En coure',
+                                'badge-light': entretien.feedback?.nom ==='N\'a pas assisté'
                               }">{{entretien.feedback?.nom}}</span></td>
                             <td>{{entretien.commentaire}}</td>
                             <td>{{entretien.recruteur?.lastName}} {{entretien.recruteur?.firstName}}</td>

@@ -26,14 +26,14 @@ export class CompteRenduComponent {
   selectedFileName!: string ;
   selectedcvName: string | undefined;
   captionText: string | undefined;
-  entretien: Entretien = {};
+  
   listequestionTECH: any;
   @ViewChild('myModal') modalRef!: ElementRef;
   idcanditate!: string;
   listeFeedBack: Array<Feedback> = [];
   compteRenduForm!: FormGroup;
   compteRendu:CompteRendu= new CompteRendu();
-  entriten:Entretien= new Entretien()
+  entretien:Entretien= new Entretien()
   infocandidate:Infocandidate=new Infocandidate();
   repenseQRH:RepenseQRH=new RepenseQRH();
   listrepTECH: RepenseQTECH[] = [];
@@ -185,22 +185,14 @@ export class CompteRenduComponent {
     modal.style.display = 'none';
   }
   onSubmit() {
-    
-
-    
-    const formValues = this.compteRenduForm.value;
-
   
-
+    const formValues = this.compteRenduForm.value;
     if(formValues.lastName){this.entretien.lastName = formValues.lastName;}
     if(formValues.firstName){this.entretien.firstName = formValues.firstName;}
       if(formValues.datemodif){ this.entretien.datemodif = formValues.datemodif;}
         if(formValues.time){this.entretien.time = formValues.time;}
         if(formValues.commentaire){this.entretien.commentaire = formValues.commentaire;}
- 
-  
-  
-
+        if(formValues.feedback){this.entretien.feedback = formValues.feedback;}
   // Map infocandidate properties
   this.infocandidate.Phone = formValues.Phone;
   this.infocandidate.Address = formValues.Address;
@@ -215,7 +207,6 @@ export class CompteRenduComponent {
   this.infocandidate.VISA = formValues.VISA;
   this.infocandidate.Mobilite = formValues.Mobilite;
   this.infocandidate.AutredsBoites = formValues.AutredsBoites;
-
   // Map repenseQRH properties
   this.repenseQRH.frenchLevel = formValues.frenchLevel;
   this.repenseQRH.englishlevel = formValues.englichLevel;
@@ -225,7 +216,6 @@ export class CompteRenduComponent {
   this.repenseQRH.Q3 = formValues.Q3;
   this.repenseQRH.Q4 = formValues.Q4;
   this.repenseQRH.Q5 = formValues.Q5;
-
   // Now, map the repenseQTECH array
   // Assuming listrepTECH contains the RepenseQTECH objects
   const repenseQTECH = this.listrepTECH;

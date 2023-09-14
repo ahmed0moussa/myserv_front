@@ -43,7 +43,7 @@ export class AddCandidateComponent {
     this.addcandidateForm=this.formBuilder.group({
       lastName:['',Validators.required],
       firstName:['',Validators.required],
-      datecreation:['',[Validators.required, this.minDateValidator()]],
+      datecreation:['',Validators.required],
       time:['',Validators.required],
       post:['', Validators.required],
       cv:['', Validators.required]
@@ -53,14 +53,7 @@ export class AddCandidateComponent {
   }
   
   
-  minDateValidator() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set the time to 00:00:00
-    return (control: { value: string | number | Date; }) => {
-      const selectedDate = new Date(control.value);
-      return selectedDate >= today ? null : { minDate: true };
-    };
-  }
+  
 
   onFileSelected(event: Event) {
     const fileInput = event.target as HTMLInputElement;

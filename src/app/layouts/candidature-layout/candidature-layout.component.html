@@ -1,0 +1,205 @@
+<div class="candidature-welcome">
+    <h2>Candidature Spontanée</h2>
+</div>
+<div class="container-fluid">
+    <div class="candidature-img">
+        <div><img src="../../../assets/template/img/image3.jpg" ></div>
+        <div>
+            <h2>DÉPOSER UNE CANDIDATURE SPONTANÉE</h2></div>
+    </div>
+    <form #f="ngForm" [formGroup]="addcandidateurForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+        
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (last name)-->
+                <div class="col-md-6">
+                    <label class="small mb-1"  for="inputLastName">Nom*</label>
+                    <input class="form-control"  type="text" formControlName="lastName"  placeholder="nom" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['lastName'].errors}">
+                </div>
+                <!-- Form Group (first name)-->
+                <div class="col-md-6">
+                    <label class="small mb-1" for="inputFirstName">Prenom*</label>
+                    <input class="form-control"  type="text" formControlName="firstName" placeholder="prenom" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['firstName'].errors}">
+                </div>
+                
+            </div>
+            <!-- Form Row        -->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (phone)-->
+                <div class="col-md-6">
+                    <label class="small mb-1"  for="phone">Numéro de téléphone*</label>
+                    <input class="form-control"  type="tel" formControlName="Phone" placeholder="numéro de téléphone" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Phone'].errors}">
+                </div>
+                <!-- Form Group (location)-->
+                <div class="col-md-6">
+                    <label class="small mb-1"  for="inputLocation">Adresse*</label>
+                    <input class="form-control" formControlName="Address" type="text" placeholder="Adresse " value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Address'].errors}">
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (email address)-->
+                <div class="col-md-6">
+                    <label class="small mb-1" for="inputEmailAddress">Adresse mail*</label>
+                    <input class="form-control" formControlName="Email" id="inputEmailAddress" type="email" placeholder="name@example.com" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Email'].errors}">
+                </div>
+                <div class="col-md-2">
+                    <!-- Form Group (Permis)-->
+                    <label class="small mb-1" for="inputAge">Permis</label>
+                    <select class="form-control" formControlName="Permit" name="Status">
+                        <option value="" disabled selected>--Permis de conduire ?--</option>
+                        <option value="oui">oui</option>
+                        <option value="non">non</option>
+                    </select>
+                </div>
+                <!-- Form Group (age)-->
+                <div class="col-md-2">
+                    <label class="small mb-1" for="inputAge">Âge*</label>
+                    <input class="form-control" formControlName="Age" type="number" placeholder="Âge " [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Age'].errors}">
+                </div>
+                <!-- Form Group (Status)-->
+                <div class="col-md-2">
+                    <!-- Form Group (Status)-->
+                    <label class="small mb-1" for="inputStatus ">Votre situation familiale*</label>
+                    <select class="form-control" formControlName="Status" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Status'].errors}">
+                        <option value="" disabled selected>--choisissez Statut--</option>
+                        <option value="célibataire">célibataire</option>
+                        <option value="marié(e)">marié(e) sans enfants</option>
+                        <option value="marié(e)">marié(e) avec enfants</option>
+                        <option value="divorcé(e)">divorcé(e)</option>
+                        <option value="veuf(ve)">veuf(ve)</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (Diplôme)-->
+                <div class="col-md-4">
+                    <label class="small mb-1" for="inputDiplôme">Diplôme*</label>
+                    <input class="form-control" formControlName="Diplome"   type="text" placeholder="Diplôme" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Diplome'].errors}">
+                </div>
+                <!-- Form Group (Années d’expérience )-->
+                <div class="col-md-4">
+                    <label class="small mb-1" for="inputexp">Années d’expérience*</label>
+                    <input class="form-control" formControlName="YearsOfExperience" type="number" placeholder="Années d’expérience " value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['YearsOfExperience'].errors}">
+                </div>
+                <!-- Form Group (salary)-->
+                <div class="col-md-4">
+                    <label class="small mb-1" for="inputsalary">Salaire Souhaité annuel brut*</label>
+                    <input class="form-control" formControlName="Salary" type="text" placeholder="Salaire" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Salary'].errors}">
+                </div>
+                
+            </div>
+            <div class="row gx-3 mb-3">
+            <!-- Form Group ()-->
+            <div class="col-md-4">
+                <label class="small mb-1" for="inputsalary">Préavis*</label>
+                <input class="form-control" formControlName="Preavis" type="text" placeholder="Préavis" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Preavis'].errors}">
+            </div>
+                
+                <!-- Form Group (Années d’expérience )-->
+                <div class="col-md-4">
+                    <label class="small mb-1" for="inputexp">Quelle est votre mobilité?*</label>
+                    <select class="form-control" formControlName="mobilite" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['mobilite'].errors}">
+                        <option  disabled selected>Mobilité (pour les résidants en France)</option>
+                        <option value="Je peux travailler et je suis mobile pour travailler dans toute la France">Je peux travailler et je suis mobile pour travailler dans toute la France</option>
+                        <option value="Juste Paris">Juste Paris</option>
+                        <option value="Ile de France (Grand Paris)">Ile de France (Grand Paris)</option>
+                        <option value="Autre ville">Autre ville</option>
+                    </select>
+                </div>
+                <!-- Form Group (Autres boîtes:)-->
+                <div class="col-md-4">
+                    <label class="small mb-1" for="input" >Autres boîtes*</label>
+                    <select class="form-control" formControlName="AutredsBoites" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['AutredsBoites'].errors}">
+                    <option value="" disabled selected>--autres boîtes ?--</option>
+                    <option value="oui">oui</option>
+                    <option value="non">non</option>
+                </select>
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" for="inputvisa">Avez-vous un VISA ? Quel type ? Touristique, Détaché, ou visa d’affaires ?*</label>
+                    <input class="form-control" formControlName="VISA" type="text" placeholder="VISA" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['VISA'].errors}">
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" for="inputvisa">Disponible pour travailler en France?*</label>
+                    <select class="form-control" formControlName="Disponible" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Disponible'].errors}">
+                        <option value="" disabled selected>--Disponible--</option>
+                        <option value="oui">oui</option>
+                        <option value="non">non</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" for="inputvisa">Quel est votre domaine d'expertise?</label>
+                    <input class="form-control" formControlName="domaine" type="text" value="">
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" for="inputvisa">Type de mission recherchée</label>
+                    <input class="form-control" formControlName="TypeDeMission" type="text"  value="">
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" for="inputvisa">Quelles sont les technologies / compétences que vous maîtrisez le plus?</label>
+                    <input class="form-control" formControlName="technologies" type="text"  value="">
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" for="inputvisa">Quelles sont les certifications que vous avez obtenues?</label>
+                    <input class="form-control" formControlName="certifications" type="text"  value="">
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" for="inputvisa">Quel type de contrat vous cherchez pour aller travailler en France?*</label>
+                    <select class="form-control" formControlName="contrat" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['contrat'].errors}">
+                        <option value="" disabled selected>--contrat--</option>
+                        <option value="Juste le titre bleu européen">Juste le titre bleu européen</option>
+                        <option value="Je suis ouvert au Détachement">Je suis ouvert au Détachement</option>
+                        <option value="CDI">CDI</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-12">
+                    <label class="small mb-1" >Votre CV*</label>
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <input type="file" #fileInput class="custom-file-input" id="customFile" (change)="onCvSelected($event)" formControlName="cv"
+                            [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['cv'].errors}">
+                            <label class="custom-file-label" for="customFile">{{ selectedCvName || 'Choose cv' }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-3 mb-3 ">
+                <div class="col-md-12">
+                    <label class="small mb-1" >Lettre de motivation</label>
+                    <div class="col-md-12"> 
+                        <div class="form-group ">
+                            <input type="file" #fileInput class="custom-file-input" id="customFile" (change)="onLettreSelected($event)" formControlName="lettreDeMotivation">
+                            <label class="custom-file-label" for="customFile">{{ selectedLettreName || 'lettre De Motivation' }}</label>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="row gx-3 mb-3 ">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary " >Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<footer class="text-center mt-5">
+    <p>&copy; 2023 All rights reserved.</p>
+</footer>

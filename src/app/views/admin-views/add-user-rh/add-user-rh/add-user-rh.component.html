@@ -14,7 +14,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="lastname">Nom</label>
-                                <input type="text" class="form-control"  formControlName="lastName"  placeholder="Nom rh" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['lastName'].errors}" required>
+                                <input type="text" class="form-control"  formControlName="lastName"  placeholder="Nom de utilisateur" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['lastName'].errors}" required>
                                 <div *ngIf="submitted && registrationForm.controls['lastName'].errors" class="text-danger mt-1">
                                     nom obligatoire
                                 </div>
@@ -23,7 +23,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="lastname">Prenom</label>
-                                <input type="text" class="form-control"  formControlName="firstName"  placeholder="Prenom rh" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['firstName'].errors}" required>
+                                <input type="text" class="form-control"  formControlName="firstName"  placeholder="Prenom de utilisateur" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['firstName'].errors}" required>
                                 <div *ngIf="submitted && registrationForm.controls['firstName'].errors" class="text-danger mt-1">
                                     prenom obligatoire
                                 </div>

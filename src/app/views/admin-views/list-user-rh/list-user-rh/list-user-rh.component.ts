@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { loggedin } from 'src/app/services/models/loggedin';
 import { RegisterService } from 'src/app/services/service/register.service';
 
@@ -15,7 +16,9 @@ export class ListUserRhComponent {
   listeUser:any;
   iduser!:string
 
-  constructor(private formBuilder: FormBuilder,private registerService:RegisterService){
+  constructor(private formBuilder: FormBuilder,
+              private registerService:RegisterService,
+              private toastr:ToastrService ){
     this.findall();
   }
   ngOnInit(): void {
@@ -81,6 +84,7 @@ setupadateid(iduser:string) {
     this.registerService.updateUser(this.iduser, formData).subscribe(
       () => {
         console.log('User updated successfully',formData);
+        this.toastr.success('utilisateur modifier avec succés!', 'Success');
         this.findall();
       },
       error => {
