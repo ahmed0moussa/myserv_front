@@ -10,6 +10,8 @@ import { CvFileService } from 'src/app/services/service/cv-file.service';
 import { ToastrService } from 'ngx-toastr';
 import { trigger } from '@angular/animations';
 import { Router } from '@angular/router';
+import { CandidateService } from 'src/app/services/service/candidate.service';
+import { Candidate } from 'src/app/services/models/candidate';
 @Component({
   selector: 'app-add-candidate',
   templateUrl: './add-candidate.component.html',
@@ -23,18 +25,22 @@ import { Router } from '@angular/router';
 export class AddCandidateComponent {
   @ViewChild('fileInput', { static: true })
   fileInput!: ElementRef<HTMLInputElement>;
+  addcandidateForm!:FormGroup
+  submitted=false
+  selectedFileName: string | undefined;
+  listeSpecialite: Array<Specialite> = []
+  entretien:Entretien= new Entretien();
+  candidate:Candidate=new Candidate();
   constructor(private formBuilder:FormBuilder,
     private entretienService: EntretienService,
+    private candidateService:CandidateService,
     private specialiteService: SpecialiteService,
      private cvFileService :CvFileService,
      private toastr:ToastrService,
      private router :Router ){
   }
     
-  addcandidateForm!:FormGroup
-  submitted=false
-  selectedFileName: string | undefined;
-  listeSpecialite: Array<Specialite> = []
+  
   
 
   ngOnInit(){
@@ -43,7 +49,8 @@ export class AddCandidateComponent {
     this.addcandidateForm=this.formBuilder.group({
       lastName:['',Validators.required],
       firstName:['',Validators.required],
-      datecreation:['',Validators.required],
+      email:['',Validators.required],
+      date:['',Validators.required],
       time:['',Validators.required],
       post:['', Validators.required],
       cv:['', Validators.required]
@@ -66,21 +73,38 @@ export class AddCandidateComponent {
   onSubmit(f:any) {
     
     this.submitted = true;
-    const entretiendata: Entretien = f.form.value;
-    const specialite: any = f.form.value.post;
+    const formData = this.addcandidateForm.value;
+    this.candidate.firstName=formData.firstName;
+    this.candidate.lastName=formData.lastName;
+    this.candidate.email=formData.email;
+    
+    this.entretien.date=formData.date;
+    this.entretien.time=formData.time;
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString();
+    this.entretien.datecreation = formattedDate;
+    this.entretien.entretienType="rh"
+    
     const fileInputElement = this.fileInput.nativeElement;
     
 
     if (f.valid) {
       const selectedFile = fileInputElement.files && fileInputElement.files[0];
       if (selectedFile && selectedFile instanceof File) {
-        this.entretienService.save(entretiendata, specialite).subscribe(
+        this.candidateService.createCandidate(this.candidate,formData.post).subscribe(
           (data) => {
             if (data && data.id) { // Make sure data and data.id are defined
-              const entretienId = data.id;
-              this.cvFileService.uploadFile(entretienId, selectedFile).subscribe(
+              const candidateId = data.id;
+              this.cvFileService.uploadFile(candidateId , selectedFile).subscribe(
                 (response) => {
                   console.log('Upload successful', response);
+                  this.entretienService.save(this.entretien,data.id).subscribe(
+                    (res)=>{
+                      console.log('save entretien successful', res);
+                    },(err)=>{
+                      console.error('save entretien error', err);
+                    }
+                  )
                   
                 },
                 (error) => {
@@ -89,14 +113,16 @@ export class AddCandidateComponent {
               );
               console.log('Candidate saved successfully', data);
               this.toastr.success('Candidate saved successfully!', 'Success');
-                this.router.navigate(['listcandidate/'+data.specialite?.nom+'/'+data.specialite?.id])
+              this.toastr.success('entretien saved successfully!', 'Success');
+
+                 this.router.navigate(['listcandidate/'+data.specialite?.nom+'/'+data.specialite?.id])
             } else {
-              console.error('No valid entretienId in the response');
+              console.error('No valid candidateId  in the response');
             }
           },
           (error) => {
             console.error('Error while saving candidate', error);
-            this.toastr.error('Error saving data', 'Error');
+            this.toastr.error('Email déjà existé', 'Error');
           }
         );
       } else {

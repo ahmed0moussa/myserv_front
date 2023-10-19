@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CvFileService {
-  baseur = 'http://localhost:8080/api/v1/entretien/';
+  baseur = 'http://localhost:8080/api/candidate/';
   headers = new HttpHeaders();
   constructor(private Http: HttpClient) {
   }
   uploadFile(entretienId: string, file: File): Observable<any> {
     const formData: FormData = new FormData();
+    
     formData.append('file', file, file.name);
 
     const url = `${this.baseur}uploadFile/${entretienId}`;

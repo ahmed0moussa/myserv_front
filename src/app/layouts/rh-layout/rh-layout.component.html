@@ -30,6 +30,11 @@
             <div class="sidebar-heading">
                 candidat à recruter
             </div>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/listCandidature">
+                    <i class="fas fa-address-book"></i>
+                    <span>suivi les Candidatures </span></a>
+            </li>
             <!-- Nav Item - add condidate  -->
             <li class="nav-item">
                 <a class="nav-link" routerLink="/addcandidate">
@@ -49,7 +54,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">les postes:</h6>
                         <div *ngFor="let specialite of listeSpecialite">
-                            <a class="collapse-item" routerLink="listcandidate/{{specialite.nom}}/{{specialite.id}}" >{{specialite.nom}}</a>
+                            <a class="collapse-item" routerLink="loadlist/{{specialite.nom}}/{{specialite.id}}" >{{specialite.nom}}</a>
                             </div>
                     </div>
                 </div>
@@ -173,7 +178,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" routerLink="/login" data-dismiss="modal">Logout</a>
+                    <a class="btn btn-primary" (click)="logout()" data-dismiss="modal">Logout</a>
                 </div>
             </div>
         </div>

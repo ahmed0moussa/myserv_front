@@ -1,19 +1,32 @@
 <div class="container-fluid">
-    <form #f="ngForm" [formGroup]="compteRenduForm" (ngSubmit)="onSubmit()">
+    <form #f="ngForm" [formGroup]="compteRenduForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <h1 class="h3 mb-2 text-gray-800">Compte rendu</h1>
     <div class="card shadow mb-4">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Coordonnées du entretien</h6>
+                <button class="button" (click)="goToEntretie()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none" class="svg-icon"><g stroke-width="2" stroke-linecap="round" stroke="#fff"><rect y="5" x="4" width="16" rx="2" height="16"></rect><path d="m8 3v4"></path><path d="m16 3v4"></path><path d="m4 11h16"></path></g></svg>
+                    <span class="lable">Ajouter un entretien</span>
+                  </button>
+            </div>   
+        <div class="card-body">
+            
+            <div class="row pb-3 btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" *ngFor="let oneEntretien of listeEntretien;let i=index" class="btn col-md- my-2" [ngClass]="{
+                    'btn-primary': oneEntretien.feedback?.nom === 'Validé RH',
+                    'btn-danger': oneEntretien.feedback?.nom === 'Non validé RH' || oneEntretien.feedback?.nom === 'Non validé TECH',
+                    'btn-success': oneEntretien.feedback?.nom === 'Recruté',
+                    'btn-info': oneEntretien.feedback?.nom === 'Validé TECH',
+                    'btn-secondary': oneEntretien.feedback?.nom ==='En coure',
+                    'btn-light': oneEntretien.feedback?.nom ==='N\'a pas assisté'
+                  }"title='entretien {{oneEntretien.entretienType }} | {{oneEntretien.feedback?.nom}}' (click)="findEntretienbyId(oneEntretien.id,i)" >{{oneEntretien.date | date:'dd/MM/yyyy'}}</button>
+                
             </div>
             
-        <div class="card-body">
+            
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class=" form-group col-md-4" >
-                            <label for="Postes">Postes</label>
-                            <input type="text" class="form-control"  [value]="entretien.specialite?.nom"  disabled>
-                        </div>
                         <div class=" form-group col-md-4">
                             <label for="Postes">feedback</label>
                             <span class="form-control badge badge-pill " [ngClass]="{
@@ -26,18 +39,26 @@
                               }">{{entretien.feedback?.nom}}</span>
                         </div>
                         <div class=" form-group col-md-4">
-                            <label for="Recruteur">Recruteur</label>
-                            <input type="text" class="form-control" disabled [value]="entretien.recruteur?.lastName+' '+entretien.recruteur?.firstName">
+                            <label for="Postes">type d'entretien </label>
+                            <span class="form-control badge badge-pill " >{{entretien.entretienType}}</span> 
                         </div>
+                        <div class=" form-group col-md-2"></div>
+                        <div class=" form-group col-md-2">
+                            <label for="delete">supprimer  </label>
+                            <button class="delete-button" data-toggle="tooltip" data-placement="top" title="Supprimer" data-toggle="modal" data-target="#deleteModal" >
+                            <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                                              <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                                            </svg>
+                          </button></div>
                     </div>
                     <div class="row">
                         <div class=" form-group col-md-4">
-                            <label for="dateen">Date du premier entretien</label>
+                            <label for="dateen">Date creation entretien</label>
                             <input type="date" class="form-control" [value]="entretien.datecreation" disabled>
                         </div>
                         <div class=" form-group col-md-4">
                             <label for="dateen">Date d'entretien</label>
-                            <input type="date" formControlName="datemodif"  class="form-control">
+                            <input type="date" formControlName="date" [value]="entretien.date" class="form-control">
                         </div>
                         <div class=" form-group col-md-4">
                             <label for="time">Heure d'entretien</label>
@@ -53,27 +74,120 @@
                     </div>
 
                 </div>
-                <div class="col-md-3">
-                    <div class="card-body text-center">
-                        <!-- Profile picture image-->
-                        <a [href]="entretien.file">
-                        <img
-                        class="img-account-profile mb-2 "
-                        src=" ../../../assets/template/img/cv.jpg"
-                        width="200px" height="300px"></a>
-                        <div class="row position-relative">
-                            <!-- Profile picture upload button-->
-                            <input type="file" class="custom-file-input" id="customFile" (change)="oncvSelected($event)" formControlName="file" >
-                            <label class="custom-file-label" for="customFile">{{ selectedcvName || 'Choose file' }}</label>
-                        </div>
-                        
-                        
+                
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Coordonnées du candidat</h6>
+        </div>   
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row gx-3 mb-3">
+                    <!-- Form Group (last name)-->
+                    <div class="col-md-6">
+                        <label class="small mb-1"  for="inputLastName">Nom</label>
+                        <input class="form-control"  type="text" formControlName="lastName"  placeholder="nom" [value]="candidate?.lastName">
+                    </div>
+                    <!-- Form Group (first name)-->
+                    <div class="col-md-6">
+                        <label class="small mb-1" for="inputFirstName">Prenom</label>
+                        <input class="form-control"  type="text" formControlName="firstName" placeholder="prenom" [value]="candidate?.firstName">
+                    </div>
+                    
+                </div>
+                <div class="row gx-3 mb-3">
+                    <!-- Form Group (email)-->
+                    <div class="col-md-6">
+                        <label class="small mb-1"  for="email">Email</label>
+                        <input class="form-control"  type="text" formControlName="email"  placeholder="email" [value]="candidate?.email">
+                    </div>
+                    <!-- Form Group (phone)-->
+                    <div class="col-md-6">
+                        <label class="small mb-1" for="phone">Numéro de téléphone </label>
+                        <input class="form-control"  type="text" formControlName="phone" placeholder="phone" [value]="candidate?.phone">
+                    </div>
+                    
+                </div>
+               
+                <div class="row">
+                    <div class=" form-group col-md-4" >
+                        <label for="Postes">Postes</label>
+                        <input type="text" class="form-control"  [value]="candidate?.specialite?.nom"  disabled>
+                    </div>
+                    <div class=" form-group col-md-4">
+                        <label for="Postes">feedback</label>
+                        <span class="form-control badge badge-pill " [ngClass]="{
+                            'badge-primary': candidate?.feedback?.nom === 'Validé RH',
+                            'badge-danger': candidate?.feedback?.nom === 'Non validé RH' || candidate?.feedback?.nom === 'Non validé TECH',
+                            'badge-success': candidate?.feedback?.nom === 'Recruté',
+                            'badge-info': candidate?.feedback?.nom === 'Validé TECH',
+                            'badge-secondary': candidate?.feedback?.nom ==='En coure',
+                            'badge-light': candidate?.feedback?.nom ==='N\'a pas assisté'
+                          }">{{candidate?.feedback?.nom}}</span>
+                    </div>
+                    <div class=" form-group col-md-4">
+                        <label for="Recruteur">Recruteur</label>
+                        <input type="text" class="form-control" disabled [value]="candidate?.recruteur?.firstName+' '+candidate?.recruteur?.lastName">
+                    </div>
+                </div>
+                <div class="row gx-3 mb-3 ">
+                    <div class="form-group col-md-4 d-flex flex-column">
+                        <label for="cr">Compte Rendu</label>
+                            <button class=" continue-application">
+                                
+                                <div>
+                                    <div class="pencil"></div>
+                                    <div class="folder">
+                                        <div class="top">
+                                            <svg viewBox="0 0 24 27">
+                                                <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="paper"></div>
+                                    </div>
+                                </div>
+                                <a [href]="compteRendu.compteRenduFile" target="_blank">voir Compte Rendu</a>
+                            </button>
                         
                     </div>
+                    <div class="form-group col-md-4 d-flex flex-column">
+                        <label for="cr">Compte Rendu upload</label>
+                        <div class="row position-relative">
+                           
+                            <input type="file" #crInput class="custom-file-input" id="customFile" (change)="oncrSelected($event)" formControlName="cr" >
+                            <label class="custom-file-label" for="customFile">{{ selectedcrName || 'Choose file' }}</label>
+                        </div> 
+                        
+                    </div>
+                </div>
+                
+
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card-body text-center">
+                    
+                    <a [href]="candidate?.file" target="_blank">
+                    <img
+                    class="img-account-profile mb-2 "
+                    src=" ../../../assets/template/img/cv.jpg"
+                    width="200px" height="300px"></a>
+                    <div class="row position-relative">
+                        
+                        <input type="file" #cvInput class="custom-file-input" id="customFile" (change)="oncvSelected($event)" formControlName="file" >
+                        <label class="custom-file-label" for="customFile">{{ selectedcvName || 'Choose file' }}</label>
+                    </div>
+                    
+                    
+                    
                 </div>
             </div>
         </div>
     </div>
+</div>
     
     <div class="row">
         <div class="col-xl-4">
@@ -105,9 +219,9 @@
                     <div class="small font-italic text-muted mb-4">
                         JPG or PNG no larger than 5 MB
                     </div>
-                    <div class="row position-relative">
+                    <div class="row position-relative mb-3">
                         <!-- Profile picture upload button-->
-                        <input type="file" class="custom-file-input" id="customFile" (change)="onFileSelected($event)" formControlName="image" >
+                        <input type="file" #imageInput class="custom-file-input" id="customFile" (change)="onFileSelected($event)" formControlName="image" >
                         <label class="custom-file-label" for="customFile">{{ selectedFileName || 'Choose file' }}</label>
                     </div>
                     
@@ -123,111 +237,94 @@
                     <h6 class="m-0 font-weight-bold text-primary">Coordonnées du candidat</h6>
                 </div>
                 <div class="card-body">
-                     <!-- Form Row-->
-                     <div class="row gx-3 mb-3">
-                         <!-- Form Group (last name)-->
-                         <div class="col-md-6">
-                             <label class="small mb-1"  for="inputLastName">Nom</label>
-                             <input class="form-control"  type="text" formControlName="lastName"  placeholder="nom" [value]="entretien.lastName">
-                         </div>
-                         <!-- Form Group (first name)-->
-                         <div class="col-md-6">
-                             <label class="small mb-1" for="inputFirstName">Prenom</label>
-                             <input class="form-control"  type="text" formControlName="firstName" placeholder="prenom" [value]="entretien.firstName">
-                         </div>
-                         
-                     </div>
                      <!-- Form Row        -->
-                     <div class="row gx-3 mb-3">
-                         <!-- Form Group (phone)-->
-                         <div class="col-md-6">
-                             <label class="small mb-1"  for="phone">Numéro de téléphone </label>
-                             <input class="form-control"  type="tel" formControlName="Phone" placeholder="numéro de téléphone" value="">
-                         </div>
+                    <div class="row gx-3 mb-3">
                          <!-- Form Group (location)-->
                          <div class="col-md-6">
                              <label class="small mb-1"  for="inputLocation">Adresse </label>
-                             <input class="form-control" formControlName="Address" type="text" placeholder="Adresse " value="">
+                             <input class="form-control" formControlName="address" type="text" placeholder="Adresse " [value]="infocandidate?.address">
                          </div>
-                     </div>
-                     <div class="row gx-3 mb-3">
-                         <!-- Form Group (email address)-->
-                         <div class="col-md-6">
-                             <label class="small mb-1" for="inputEmailAddress">Adresse mail </label>
-                             <input class="form-control" formControlName="Email" id="inputEmailAddress" type="email" placeholder="name@example.com" value="">
-                         </div>
-                         <div class="col-md-2">
-                             <!-- Form Group (Permis)-->
-                             <label class="small mb-1" for="inputAge">Permis</label>
-                             <select class="form-control" formControlName="Permit" name="Status">
-                                 <option value="" disabled selected>--Permis de conduire ?--</option>
-                                 <option value="oui">oui</option>
-                                 <option value="non">non</option>
-                             </select>
-                         </div>
+                        <div class="col-md-6">
+                            <!-- Form Group (Permis)-->
+                            <label class="small mb-1" for="inputAge">Permis</label>
+                            <select class="form-control" formControlName="permit"  >
+                                <option value="" disabled [selected]="infocandidate?.Permis === ''">--Permis de conduire ?--</option>
+                                <option value="oui" [selected]="infocandidate?.Permis === 'oui'">oui</option>
+                                <option value="non"[selected]="infocandidate?.Permis === 'non'">non</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+
                          <!-- Form Group (age)-->
-                         <div class="col-md-2">
+                         <div class="col-md-6">
                              <label class="small mb-1" for="inputAge">Âge</label>
-                             <input class="form-control" formControlName="Age" type="number" placeholder="Âge " >
+                             <input class="form-control" formControlName="age" type="number" placeholder="Âge " [value]="infocandidate?.age">
                          </div>
                          <!-- Form Group (Status)-->
-                         <div class="col-md-2">
-                             <!-- Form Group (Status)-->
-                             <label class="small mb-1" for="inputStatus ">Statut</label>
-                             <select class="form-control" formControlName="Status" name="Status">
-                                 <option value="" disabled selected>--choisissez Statut--</option>
-                                 <option value="célibataire">célibataire</option>
-                                 <option value="marié(e)">marié(e) sans enfants</option>
-                                 <option value="marié(e)">marié(e) avec enfants</option>
-                                 <option value="divorcé(e)">divorcé(e)</option>
-                                 <option value="veuf(ve)">veuf(ve)</option>
-                             </select>
-                         </div>
+                         <div class="col-md-6">
+                            <!-- Form Group (Status)-->
+                            <label class="small mb-1" for="inputStatus">Statut</label>
+                            <select class="form-control" formControlName="status" name="status">
+                              <option value="" disabled [selected]="infocandidate?.status === ''">--choisissez Statut--</option>
+                              <option value="célibataire" [selected]="infocandidate?.status === 'célibataire'">célibataire</option>
+                              <option value="marié(e) sans enfants" [selected]="infocandidate?.status === 'marié(e) sans enfants'">marié(e) sans enfants</option>
+                              <option value="marié(e) avec enfants" [selected]="infocandidate?.status === 'marié(e) avec enfants'">marié(e) avec enfants</option>
+                              <option valuele="divorcé(e)" [selected]="infocandidate?.status === 'divorcé(e)'">divorcé(e)</option>
+                              <option value="veuf(ve)" [selected]="infocandidate?.status === 'veuf(ve)'">veuf(ve)</option>
+                            </select>
+                          </div>
+                          
                      </div>
                      <!-- Form Row-->
                      <div class="row gx-3 mb-3">
                          <!-- Form Group (Diplôme)-->
                          <div class="col-md-4">
                              <label class="small mb-1" for="inputDiplôme">Diplôme</label>
-                             <input class="form-control" formControlName="Diplome"   type="text" placeholder="Diplôme" value="">
+                             <input class="form-control" formControlName="diplome"   type="text" placeholder="Diplôme"  [value]="infocandidate?.diplome">
                          </div>
                          <!-- Form Group (Années d’expérience )-->
                          <div class="col-md-4">
                              <label class="small mb-1" for="inputexp">Années d’expérience </label>
-                             <input class="form-control" formControlName="YearsOfExperience" type="number" placeholder="Années d’expérience " value="">
+                             <input class="form-control" formControlName="yearsOfExperience" type="number" placeholder="Années d’expérience " [value]="infocandidate?.yearsOfExperience">
                          </div>
                          <!-- Form Group (salary)-->
                          <div class="col-md-4">
                              <label class="small mb-1" for="inputsalary">Salaire Souhaité annuel brut  </label>
-                             <input class="form-control" formControlName="Salary" type="text" placeholder="Salaire" value="">
+                             <input class="form-control" formControlName="salary" type="text" placeholder="Salaire" [value]="infocandidate?.salary">
                          </div>
                          
                      </div>
                      <div class="row gx-3 mb-3">
                         <!-- Form Group ()-->
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <label class="small mb-1" for="inputsalary">Préavis</label>
-                            <input class="form-control" formControlName="Preavis" type="text" placeholder="Préavis" value="">
+                            <input class="form-control" formControlName="preavis" type="text" placeholder="Préavis" [value]="infocandidate?.preavis">
                         </div>
-                         <div class="col-md-3">
+                         <div class="col-md-6">
                              <label class="small mb-1" for="inputvisa">VISA</label>
-                             <input class="form-control" formControlName="VISA" type="text" placeholder="VISA" value="">
+                             <input class="form-control" formControlName="visa" type="text" placeholder="VISA" [value]="infocandidate?.visa">
                          </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
                          <!-- Form Group (Années d’expérience )-->
-                         <div class="col-md-4">
+                         <div class="col-md-6">
                              <label class="small mb-1" for="inputexp">Mobilité (pour les résidants en France)</label>
-                             <input class="form-control" formControlName="Mobilite" type="text" placeholder="Mobilité " value="">
+                             <input class="form-control" formControlName="mobilite" type="text" placeholder="Mobilité " [value]="infocandidate?.mobilite">
                          </div>
                          <!-- Form Group (Autres boîtes:)-->
-                         <div class="col-md-2">
-                             <label class="small mb-1" for="input">Autres boîtes  </label>
-                             <select class="form-control" formControlName="AutredsBoites" name="Status">
-                                <option value="" disabled selected>--autres boîtes ?--</option>
-                                <option value="oui">oui</option>
-                                <option value="non">non</option>
+                         <div class="col-md-6">
+                            <!-- Form Group (Autres boîtes) -->
+                            <label class="small mb-1" for="input">Autres boîtes</label>
+                            <select class="form-control" formControlName="autredsBoites" name="autredsBoites">
+                              <option value="" disabled [selected]="infocandidate?.autredsBoites === ''">--autres boîtes ?--</option>
+                              <option value="oui" [selected]="infocandidate?.autredsBoites === 'oui'">oui</option>
+                              <option value="non" [selected]="infocandidate?.autredsBoites === 'non'">non</option>
                             </select>
-                         </div>
-                     </div>
+                          </div>
+                          
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -237,70 +334,25 @@
                 <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-primary">Questionnaire RH</h6>
                 </div>
-                <div class="card-body">
-                    <div class="row">
+                <div class="card-body" *ngIf="compteRendu.repenseQRHList==null">
+                    <div class="row" *ngFor="let questionrh of listequestionRH; let i = index">
                         <div class="col">
                           <div class=" form-group">
-                            <label class="black">Niveau Français</label>
-                            <input class="form-control" formControlName="frenchLevel" type="text" placeholder="Français">
-                          </div>
-                        </div>
-                        <div class="col">
-                            <div class=" form-group">
-                              <label class="black">Niveau Anglais</label>
-                              <input class="form-control" formControlName="englichLevel" type="text" placeholder="Anglais">
-                            </div>
-                          </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                          <div class=" form-group">
-                            <label class="black">Q1. Quels sont vos Qualités / Défauts ?(défauts: pistes d’amélioration actuelles)</label>
-                            <div class="row">
-                                <div class="col"><textarea class="form-control" cols="30" rows="3" placeholder="Qualités" formControlName="qualities"></textarea></div>
-                                <div class="col"><textarea class="form-control" cols="30" rows="3" placeholder="Défauts" formControlName="Faults"></textarea></div>
-                            </div>
+                            <label class="black">Q{{i+1}}.  {{ questionrh.textQuestion }}</label>
+                            <textarea [formControlName]="'rhResponse_'+i"  class="form-control" cols="30" rows="3" placeholder="" ></textarea>
                           </div>
                         </div>
                     </div>
-                    <div class="row">
+                </div> 
+                <div class="card-body" *ngIf="compteRendu.repenseQRHList">
+                    <div class="row" *ngFor="let repenserh of compteRendu.repenseQRHList; let i = index">
                         <div class="col">
                           <div class=" form-group">
-                            <label class="black">Q2. Comment gérez-vous un conflit au travail? </label>
-                            <textarea class="form-control" cols="30" rows="3" placeholder="" formControlName="Q2"></textarea>
+                            <label class="black">Q{{i+1}}.  {{ repenserh.question.textQuestion }}</label>
+                            <textarea [formControlName]="'rhResponse_'+i"  class="form-control" cols="30" rows="3" [placeholder]="repenserh.textRepense" >addsg</textarea>
                           </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                          <div class=" form-group">
-                            <label class="black">Q3. Comment gérez-vous une situation de stress ?</label>
-                            <textarea class="form-control" cols="30" rows="3" placeholder="" formControlName="Q3"></textarea>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                          <div class=" form-group">
-                            <label class="black">Q4. En quoi ce poste vous  intéresse t-il ?<br>
-                                <span class="mar"> Qu'est-ce que vous attendez de ce poste ?<br></span>
-                                <span class="mar">Pourquoi êtes-vous à l'écoute du marché?<br></span>
-                                <span class="mar">Pourquoi en France exactement?</span>
-                            </label>
-                            <textarea class="form-control" cols="30" rows="3" placeholder="" formControlName="Q4"></textarea>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                          <div class=" form-group">
-                            <label class="black">Q5. Comment envisagez-vous votre carrière? (Où vous voyez-vous dans cinq ans ?)</label>
-                            <textarea class="form-control" cols="30" rows="3" placeholder="" formControlName="Q5"></textarea>
-                          </div>
-                        </div>
-                    </div>
-                    
-                    
                 </div>
             </div>
         </div>
@@ -310,13 +362,22 @@
                 <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-primary">Questionnaire TECH</h6>
                 </div>
-                <div class="card-body">
-                    <div class="row" *ngFor="let questionT of listequestionTECH">
+                <div class="card-body" *ngIf="compteRendu.repenseQTECHList==null">
+                    <div class="row" *ngFor="let questionT of listequestionTECH; let i = index">
                         <div class="col">
                           <div class=" form-group">
-                            <label class="black">{{ questionT.textQuestion }}</label>
-                            <input class="d-none" type="text" [value]="questionT" >
-                            <textarea  (change)="onchange($event,questionT)" class="form-control" cols="30" rows="3" placeholder="" ></textarea>
+                            <label class="black">Q{{i+1}}.  {{ questionT.textQuestion }}</label>
+                            <textarea [formControlName]="'techResponse_'+i"  class="form-control" cols="30" rows="3" placeholder="" ></textarea>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="compteRendu.repenseQTECHList">
+                    <div class="row" *ngFor="let repenseT of compteRendu.repenseQTECHList; let i = index">
+                        <div class="col">
+                          <div class=" form-group">
+                            <label class="black">Q{{i+1}}.  {{ repenseT.question.textQuestion }}</label>
+                            <textarea [formControlName]="'techResponse_'+i"  class="form-control" cols="30" rows="3" [placeholder]="repenseT.textRepense" ></textarea>
                           </div>
                         </div>
                     </div>
@@ -349,7 +410,7 @@
                         
                             <div class="col ">
                                 <div class=" form-group">
-                                    <button type="submit" class="btn btn-primary " >Enregistrer</button>
+                                    <button type="submit" class="bbtn btn btn-primary " >Enregistrer</button>
                                 </div>
                           </div>
                         
@@ -362,5 +423,25 @@
     </div>
 </form>
 </div>
+<!-- Modal Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div class="container d-flex pl-0"><img src="https://imgur.com/Kh1gwTq.png"><h5 class="modal-title ml-2" id="exampleModalLabel">Supprimer cet entretien ?</h5></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted">Si vous supprimez cet entretien il sera perdu pour toujours. Êtes-vous sûr de vouloir continuer ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 

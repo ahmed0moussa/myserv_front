@@ -5,8 +5,9 @@ import { RepenseQTECH } from "./repense-qtech";
 
 export class CompteRendu {
     id!: string;
-    entretien!: Entretien;
     infocandidate!: Infocandidate;
-    repenseQRH!: RepenseQRH;
-    repenseQTECH!: RepenseQTECH[];
+    repenseQRHList!: RepenseQRH[];
+    repenseQTECHList!: RepenseQTECH[];
+
+    compteRenduFile!:string;
 }

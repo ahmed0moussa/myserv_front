@@ -1,7 +1,12 @@
-import {  Component, Renderer2, OnInit } from '@angular/core';
+import {  Component, Renderer2, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EntretienService } from 'src/app/services/service/entretien.service';
 import { Entretien } from 'src/app/services/models/entretien';
+import { CandidateService } from 'src/app/services/service/candidate.service';
+import { Candidate } from 'src/app/services/models/candidate';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+
 
 
 
@@ -13,62 +18,64 @@ import { Entretien } from 'src/app/services/models/entretien';
 })
 
 export class ListCandidateComponent implements OnInit {
+
   
-  listeEntretien: Array<Entretien> = []
+  listeCandidate: Candidate[] = [];
   filteredListeEntretien: Array<Entretien> = [];
- 
+  dtoptions:DataTables.Settings={};
+  dtTrigger:Subject<any>=new Subject<any>();
   errorMsg = ''
   typePost = ''
   idPost=''
   valueSearch=''
 
-  constructor(private routing:Router,private route:ActivatedRoute,private entretienService: EntretienService,private renderer: Renderer2){
+  constructor(private routing:Router,private route:ActivatedRoute,private entretienService: EntretienService,private candidateService:CandidateService){
+    
     this.route.params.subscribe(data=>{
       this.typePost=data['type']
       this.idPost=data['idtype']
       
-      this.findListEntretien();
+      this.dtTrigger=new Subject<any>();
+      this.findListcandidate();
+       this.dtoptions={
+      pagingType:'full_numbers'
       
+    }
        
     })
+    
   }
   ngOnInit(): void {
+    
    
+    
    
   }
-  getIput(Input: string){
-    this.valueSearch=Input;
-    console.log(this.valueSearch)
-    this.filterWithInput()
+  ngOnDestroy(): void {
+    
+    this.dtTrigger.unsubscribe();
+    
   }
+ 
+  data = JSON.parse(localStorage.getItem('token')!!);
+ 
   
   
-  
-  findListEntretien(): void {
-    this.entretienService.findbyspecialite(this.idPost).subscribe(entretien => {
-      this.listeEntretien = entretien ;
+  findListcandidate(): void {
+ 
+    this.candidateService.findbyspecialite(this.idPost).subscribe(data => {
+      this.listeCandidate = data ;
+      
+      this.listeCandidate.reverse();
+      this.dtTrigger.next(null);
+      console.log(data)
       
       
     });
   }
-  filterWithInput(){
-    
-    if(this.valueSearch===''){
-      this.findListEntretien();
-    }else{
-      const searchValue =  this.valueSearch.trim().toLowerCase();
-      this.filteredListeEntretien = this.listeEntretien.filter(entretien =>
-        (entretien.lastName && entretien.lastName.toLowerCase().includes(searchValue)) ||
-        (entretien.firstName && entretien.firstName.toLowerCase().includes(searchValue)) ||
-        (entretien.feedback?.nom && entretien.feedback.nom.toLowerCase().includes(searchValue)) ||
-        (entretien.commentaire && entretien.commentaire.toLowerCase().includes(searchValue))
-      );
-      console.log(this.filteredListeEntretien)
-    }
-  }
-  goToCompterendu(_idcanditate : string){
-    this.routing.navigate(['compterendu/'+_idcanditate])
-
-  }
+  
+  
+  
+ 
   
 }

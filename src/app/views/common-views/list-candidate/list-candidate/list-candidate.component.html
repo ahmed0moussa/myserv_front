@@ -10,17 +10,13 @@
             <h6 class="m-0 font-weight-bold text-primary">{{typePost}}</h6>
         </div>
         <div class="card-body">
-            <div class="form-group row justify-content-end mr-1">                 
-                <label for="Search" class="col-form-label control-label mr-1">Search</label>
-                <div class="col-ato">
-                <input #InputRef type="text" (input)="getIput(InputRef.value)" class="form-control" placeholder="Search" >
-              </div>
-            </div>
+            
             <div class="table-responsive">
-                <table class="table table-bordered display"  width="100%" cellspacing="0">
+                <table datatable  [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" class="table table-bordered display"  width="100%" cellspacing="0">
                     <thead>   
                         <tr>
                             <th>Nom & Prenom</th>
+                            <th>Email</th>
                             <th>date d'entretien</th>
                             <th>feedback</th>
                             <th>commentaire RH</th>
@@ -30,22 +26,25 @@
                     </thead>
                     <tbody>
                         
-                        <tr *ngFor="let entretien of listeEntretien">
-                            <td>{{entretien.lastName}} {{entretien.firstName}}</td>
-                            <td>{{entretien.datecreation}}</td>
+                        <tr *ngFor="let candidate of listeCandidate">
+                            <td>{{candidate.lastName}} {{candidate.firstName}}</td> 
+                            <td>{{candidate.email}} </td>
+                            <td *ngIf="candidate.listEntretien && candidate.listEntretien.length > 0">{{candidate.listEntretien[0].date}}</td>
+                            <td *ngIf="!candidate.listEntretien || candidate.listEntretien.length === 0">No entretien</td>
                             <td><span class="badge badge-pill " [ngClass]="{
-                                'badge-primary': entretien.feedback?.nom === 'Validé RH',
-                                'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé TECH',
-                                'badge-success': entretien.feedback?.nom === 'Recruté',
-                                'badge-info': entretien.feedback?.nom === 'Validé TECH',
-                                'badge-secondary': entretien.feedback?.nom ==='En coure',
-                                'badge-light': entretien.feedback?.nom ==='N\'a pas assisté'
-                              }">{{entretien.feedback?.nom}}</span></td>
-                            <td>{{entretien.commentaire}}</td>
-                            <td>{{entretien.recruteur?.lastName}} {{entretien.recruteur?.firstName}}</td>
+                                'badge-primary': candidate?.feedback?.nom === 'Validé RH',
+                                'badge-danger': candidate?.feedback?.nom === 'Non validé RH' || candidate?.feedback?.nom === 'Non validé TECH',
+                                'badge-success': candidate?.feedback?.nom === 'Recruté',
+                                'badge-info': candidate?.feedback?.nom === 'Validé TECH',
+                                'badge-secondary': candidate?.feedback?.nom ==='En coure',
+                                'badge-light': candidate?.feedback?.nom ==='N\'a pas assisté'
+                              }">{{candidate?.feedback?.nom}}</span></td>
+                              <td *ngIf="candidate.listEntretien && candidate.listEntretien.length > 0">{{candidate.listEntretien[0].commentaire}}</td>
+                              <td *ngIf="!candidate.listEntretien || candidate.listEntretien.length === 0">No entretien</td>
+                             <td>{{candidate?.recruteur?.lastName}} {{candidate?.recruteur?.firstName}}</td> 
                             <td>
                                 
-                                    <button class="view-more " (click)="goToCompterendu(entretien.id!)">
+                                    <button class="view-more " [routerLink]="data.roles.includes('ROLE_ADMIN') ? ['/admin/compterendu', candidate.id] : ['/compterendu', candidate.id]">
                                         <span>Voir plus</span>
                                     </button>
                                 

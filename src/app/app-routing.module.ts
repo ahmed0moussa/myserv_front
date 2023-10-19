@@ -8,15 +8,18 @@ import { AddCandidateModule } from './views/rh-views/add-candidate/add-candidate
 import { ApplicationGuardService } from './services/guards/application-guard.service';
 import { CandidatureLayoutComponent } from './layouts/candidature-layout/candidature-layout.component';
 
+
 const routes: Routes = [
   {
     path: 'candidature',
     component: CandidatureLayoutComponent,
+    
   },
   {
     path: 'login',
     component: AuthLayoutComponent,
   },
+
   {
     path: '',
     component: RhLayoutComponent,
@@ -37,6 +40,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'listCandidature',
+        loadChildren: () =>
+          import('./views/rh-views/allcandidature/allcandidature.module').then(
+            (m) => m.AllcandidatureModule
+          ),
+      },
+      {
         path: 'listcandidate/:type/:idtype',
         loadChildren: () =>
           import(
@@ -44,11 +54,25 @@ const routes: Routes = [
           ).then((m) => m.ListCandidateModule),
       },
       {
+        path: 'loadlist/:type/:idtype',
+        loadChildren: () =>
+          import(
+            './views/common-views/loadlist/loadlist.module'
+          ).then((m) => m.LoadlistModule),
+      },
+      {
         path: 'compterendu/:idcandidate',
         loadChildren: () =>
           import(
             './views/common-views/compte-rendu/compte-rendu.module'
           ).then((m) => m.CompteRenduModule),
+      },
+      {
+        path: 'ajoutentretien/:idcandidate',
+        loadChildren: () =>
+          import(
+            './views/common-views/addentretien/addentretien.module'
+          ).then((m) => m.AddentretienModule),
       },
     ],
   },
@@ -86,11 +110,26 @@ const routes: Routes = [
           ).then((m) => m.ListCandidateModule),
       },
       {
+        path: 'loadlist/:type/:idtype',
+        loadChildren: () =>
+          import(
+            './views/common-views/loadlist/loadlist.module'
+          ).then((m) => m.LoadlistModule),
+      },
+      {
         path: 'compterendu/:idcandidate',
         loadChildren: () =>
           import(
             './views/common-views/compte-rendu/compte-rendu.module'
           ).then((m) => m.CompteRenduModule),
+      },
+     
+      {
+        path: 'ajoutentretien/:idcandidate',
+        loadChildren: () =>
+          import(
+            './views/common-views/addentretien/addentretien.module'
+          ).then((m) => m.AddentretienModule),
       },
     ],
   },

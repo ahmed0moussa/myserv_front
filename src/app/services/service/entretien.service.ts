@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Entretien } from '../models/entretien';
 import { Specialite } from '../models/specialite';
 
@@ -14,27 +14,28 @@ export class EntretienService {
   
 
   constructor(private Http: HttpClient) {}
-  headers = new HttpHeaders();
-  findall() {
-    return this.Http.get<Entretien[]>(this.baseurl + 'all');
-  }
-  findbyspecialite(specialiteid:string) {
-    
-    return this.Http.get<Entretien[]>(`http://localhost:8080/api/v1/entretien/specialite?specialiteId=${specialiteid}`);
-  }
-
-  save(model: Entretien,specialite:any) {
+  
+  findall(candidateId:string) {
+    return this.Http.get<Entretien[]>(this.baseurl + 'all/'+candidateId);
+  } 
+  save(model: Entretien,candidateId:any) {
  
-    return this.Http.post<Entretien>(this.baseurl + 'create?specialite='+specialite, model);
-  }
-  precedent(specialiteId: string) {
-    return this.Http.get<Specialite>(this.baseurl + specialiteId);
+    return this.Http.post<Entretien>(this.baseurl + 'save?candidateId='+candidateId, model);
   }
   findbyId(idCanditate:string) {
   
     return this.Http.get<Entretien>(this.baseurl+'findbyid?id='+idCanditate)
 
   }
+  deletebyId(idEntretien:string,idCanditate:string){
+    return this.Http.delete(this.baseurl+"deleteEntretien/"+idEntretien+"/"+idCanditate);
+  }
+
+  
+  precedent(specialiteId: string) {
+    return this.Http.get<Specialite>(this.baseurl + specialiteId);
+  }
+  
 
  
 }

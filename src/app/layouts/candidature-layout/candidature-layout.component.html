@@ -7,9 +7,9 @@
         <div>
             <h2>DÉPOSER UNE CANDIDATURE SPONTANÉE</h2></div>
     </div>
-    <form #f="ngForm" [formGroup]="addcandidateurForm" (ngSubmit)="onSubmit()">
+    <form #f="ngForm" [formGroup]="addcandidateurForm" (ngSubmit)="onSubmit(f)">
         <div class="container">
-        
+         
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
                 <!-- Form Group (last name)-->
@@ -100,7 +100,7 @@
                 <!-- Form Group (Années d’expérience )-->
                 <div class="col-md-4">
                     <label class="small mb-1" for="inputexp">Quelle est votre mobilité?*</label>
-                    <select class="form-control" formControlName="mobilite" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['mobilite'].errors}">
+                    <select class="form-control" formControlName="Mobilite" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Mobilite'].errors}">
                         <option  disabled selected>Mobilité (pour les résidants en France)</option>
                         <option value="Je peux travailler et je suis mobile pour travailler dans toute la France">Je peux travailler et je suis mobile pour travailler dans toute la France</option>
                         <option value="Juste Paris">Juste Paris</option>
@@ -127,7 +127,7 @@
             <div class="row gx-3 mb-3">
                 <div class="col-md-12">
                     <label class="small mb-1" for="inputvisa">Disponible pour travailler en France?*</label>
-                    <select class="form-control" formControlName="Disponible" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Disponible'].errors}">
+                    <select class="form-control" formControlName="disponible" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['disponible'].errors}">
                         <option value="" disabled selected>--Disponible--</option>
                         <option value="oui">oui</option>
                         <option value="non">non</option>
@@ -136,14 +136,14 @@
             </div>
             <div class="row gx-3 mb-3">
                 <div class="col-md-12">
-                    <label class="small mb-1" for="inputvisa">Quel est votre domaine d'expertise?</label>
+                    <label class="small mb-1" for="inputvisa">Quel est votre domaine d'expertise?*</label>
                     <input class="form-control" formControlName="domaine" type="text" value="">
                 </div>
             </div>
             <div class="row gx-3 mb-3">
                 <div class="col-md-12">
                     <label class="small mb-1" for="inputvisa">Type de mission recherchée</label>
-                    <input class="form-control" formControlName="TypeDeMission" type="text"  value="">
+                    <input class="form-control" formControlName="typeDeMission" type="text"  value="">
                 </div>
             </div>
             <div class="row gx-3 mb-3">
@@ -186,7 +186,7 @@
                     <label class="small mb-1" >Lettre de motivation</label>
                     <div class="col-md-12"> 
                         <div class="form-group ">
-                            <input type="file" #fileInput class="custom-file-input" id="customFile" (change)="onLettreSelected($event)" formControlName="lettreDeMotivation">
+                            <input type="file" #lettreDeMotivationInput  class="custom-file-input" id="customFile" (change)="onLettreSelected($event)" formControlName="lettreDeMotivation">
                             <label class="custom-file-label" for="customFile">{{ selectedLettreName || 'lettre De Motivation' }}</label>
                         </div>
                     </div> 

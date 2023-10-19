@@ -12,6 +12,7 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CandidatureLayoutComponent } from './candidature-layout/candidature-layout.component';
 
+
 @NgModule({
   declarations: [AdminLayoutComponent, RhLayoutComponent, AuthLayoutComponent, CandidatureLayoutComponent],
   imports: [

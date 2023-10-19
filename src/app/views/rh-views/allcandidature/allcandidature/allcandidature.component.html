@@ -1,0 +1,329 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Suivi les Candidatures</h1>
+   
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">new Candidatures</h6>
+        </div>
+        <div class="card-body">
+            
+            <div class="table-responsive">
+                <table datatable  [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" class="table table-bordered display"   width="100%" cellspacing="0" >
+                    <thead>   
+                        <tr>
+                            <th>Nom & Prenom</th>
+                            <th>Adresse mail</th>
+                            <th>Numéro de téléphone</th>
+                            <th>Années d’expérience</th>
+                            <th>domaine </th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                      <tr *ngFor="let candidatureone of uncheckedCandidatures">
+                        <td>{{candidatureone?.infocandidate?.candidate?.lastName}} {{candidatureone?.infocandidate?.candidate?.firstName}}</td>
+                        <td>{{candidatureone?.infocandidate?.candidate?.email}}</td>
+                        <td>{{candidatureone?.infocandidate?.candidate?.phone}}</td>
+                        <td>{{candidatureone?.infocandidate?.yearsOfExperience}}</td>
+                        <td>{{candidatureone?.domaine}}</td>
+                        <td><ul class="list-inline m-0">
+                            <li class="list-inline-item">
+                              <button class="btn btn-primary btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="sauvegarder" data-toggle="modal" data-target="#editModal" (click)="getCandidatureId(candidatureone.id)" ><i class="fa fa-table"></i></button>
+                          </li>
+                          <li class="list-inline-item">
+                            <button class="btn btn-danger btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="Supprimer" data-toggle="modal" data-target="#deleteModal" (click)="setid(candidatureone.id)"><i class="fa fa-trash"></i></button>  
+                          </li>
+                          </ul></td>
+                    </tr>
+                      
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+   
+
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"> Candidatures deja vu</h6>
+        </div>
+        <div class="card-body">
+            
+            <div class="table-responsive">
+                <table  datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table table-bordered display row-border hover"  width="100%" cellspacing="0">
+                    <thead>   
+                        <tr>
+                            <th>Nom & Prenom</th>
+                            <th>Adresse mail</th>
+                            <th>Numéro de téléphone</th>
+                            <th>Années d’expérience</th>
+                            <th>domaine </th>
+                            <th>specialite efecté</th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr *ngFor="let candidaturetwo of checkedCandidatures">
+                            <td>{{candidaturetwo?.infocandidate?.candidate?.lastName}} {{candidaturetwo?.infocandidate?.candidate?.firstName}}</td>
+                            <td>{{candidaturetwo?.infocandidate?.candidate?.email}}</td>
+                            <td>{{candidaturetwo?.infocandidate?.candidate?.phone}}</td>
+                            <td>{{candidaturetwo?.infocandidate?.yearsOfExperience}}</td>
+                            <td>{{candidaturetwo?.domaine}}</td>
+                            <td>{{candidaturetwo?.infocandidate?.candidate?.specialite?.nom}}</td>
+                            <td><ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                  <button class="btn btn-primary btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="sauvegarder" data-toggle="modal" data-target="#editModal" (click)="getCandidatureId(candidaturetwo.id)" ><i class="fa fa-table"></i></button>
+                              </li>
+                              <li class="list-inline-item">
+                                <button class="btn btn-danger btn-sm rounded-10" type="button" data-toggle="tooltip" data-placement="top" title="Supprimer" data-toggle="modal" data-target="#deleteModal" (click)="setid(candidaturetwo.id)"><i class="fa fa-trash"></i></button>  
+                              </li>
+                              </ul></td>
+                        </tr>
+                      
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Modal Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div class="container d-flex pl-0"><img src="https://imgur.com/Kh1gwTq.png"><h5 class="modal-title ml-2" id="exampleModalLabel">Supprimer cet candidature?</h5></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted">Si vous supprimez cet candidature il sera perdu pour toujours. Êtes-vous sûr de vouloir continuer ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal edit -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form [formGroup]="specialiteForm"  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div class="container d-flex pl-0"><h5 class="modal-title ml-2" id="exampleModalLabel">accepté cet candidature</h5></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+        
+            <!--  Row-->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (last name)-->
+                <div class="col-md-3">
+                    <label class="small mb-1"  for="inputLastName">Nom</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.candidate?.lastName}}</p>
+                    
+                </div>
+                <!-- Form Group (first name)-->
+                <div class="col-md-3">
+                    <label class="small mb-1" for="inputFirstName">Prenom</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.candidate?.firstName}}</p>
+                </div>
+                <!-- Form Group (email address)-->
+                <div class="col-md-3">
+                  <label class="small mb-1" for="inputEmailAddress">Adresse mail</label>
+                  <p class = "font-weight-bold">{{candidature?.infocandidate?.email}}</p>
+              </div>
+              <!-- Form Group (phone)-->
+              <div class="col-md-3">
+                <label class="small mb-1"  for="phone">Numéro de téléphone</label>
+                <p class = "font-weight-bold">{{candidature?.infocandidate?.phone}}</p>
+            </div>
+                
+            </div>
+            <!--  Row        -->
+            
+            <div class="row gx-3 mb-3">
+                 <!-- Form Group (location)-->
+                <div class="col-md-3">
+                    <label class="small mb-1"  for="inputLocation">Adresse</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.address}}</p>
+                </div>
+                
+                <div class="col-md-3">
+                    <!-- Form Group (Permis)-->
+                    <label class="small mb-1" for="inputAge">Permis</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.permit}}</p>
+                    
+                </div>
+                <!-- Form Group (age)-->
+                <div class="col-md-3">
+                    <label class="small mb-1" for="inputAge">Âge</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.age}}</p>
+                </div>
+                <!-- Form Group (Status)-->
+                <div class="col-md-3">
+                    <!-- Form Group (Status)-->
+                    <label class="small mb-1" for="inputStatus ">Votre situation familiale</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.status}}</p>
+                    
+                </div>
+            </div>
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+                <!-- Form Group (Diplôme)-->
+                <div class="col-md-3">
+                    <label class="small mb-1" for="inputDiplôme">Diplôme</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.diplome}}</p>
+                </div>
+                <!-- Form Group (Années d’expérience )-->
+                <div class="col-md-3">
+                    <label class="small mb-1" for="inputexp">Années d’expérience</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.yearsOfExperience}}</p>
+                </div>
+                <!-- Form Group (salary)-->
+                <div class="col-md-3">
+                    <label class="small mb-1" for="inputsalary">Salaire Souhaité annuel brut</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.salary}}</p>
+                </div>
+                <div class="col-md-3">
+                <label class="small mb-1" for="inputsalary">Préavis</label>
+                <p class = "font-weight-bold">{{candidature?.infocandidate?.preavis}}</p>
+            </div>
+            </div>
+            <div class="row gx-3 mb-3">
+            <!-- Form Group ()-->
+                <!-- Form Group (Années d’expérience )-->
+                
+                <!-- Form Group (Autres boîtes:)-->
+                <div class="col-md-3">
+                    <label class="small mb-1" for="input" >Autres boîtes</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.autredsBoites}}</p>
+                </div>
+                <div class="col-md-3">
+                  <label class="small mb-1" for="inputvisa">Disponible pour travailler en France?</label>
+                  <p class = "font-weight-bold">{{candidature?.disponible}}</p>
+                  
+              </div>
+              <div class="col-md-6">
+                    <label class="small mb-1" for="inputexp">Quelle est votre mobilité?</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.mobilite}}</p>
+                    
+                </div>
+            </div>
+            <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                    <label class="small mb-1" for="inputvisa">Avez-vous un VISA ? Quel type ? Touristique, Détaché, ou visa d’affaires ?</label>
+                    <p class = "font-weight-bold">{{candidature?.infocandidate?.visa}}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="small mb-1" for="inputvisa">Quel est votre domaine d'expertise?</label>
+                    <p class = "font-weight-bold">{{candidature?.domaine}}</p>
+                </div>
+            </div>
+            
+           
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                    <label class="small mb-1" for="inputvisa">Quelles sont les technologies / compétences que vous maîtrisez le plus?</label>
+                    <p class = "font-weight-bold">{{candidature?.technologies}}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="small mb-1" for="inputvisa">Type de mission recherchée</label>
+                    <p class = "font-weight-bold">{{candidature?.TypeDeMission}}</p>
+                </div>
+            </div>
+            
+            <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputvisa">Quel type de contrat vous cherchez pour aller travailler en France? </label>
+                  <p class = "font-weight-bold">{{candidature?.contrat}}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="small mb-1" for="inputvisa">Quelles sont les certifications que vous avez obtenues?</label>
+                    <p class = "font-weight-bold">{{candidature?.certifications}}</p>
+                </div>
+            </div>
+            
+            <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                   
+                        <button class="continue-application">
+                            
+                            <div>
+                                <div class="pencil"></div>
+                                <div class="folder">
+                                    <div class="top">
+                                        <svg viewBox="0 0 24 27">
+                                            <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="paper"></div>
+                                </div>
+                            </div>
+                            <a [href]="candidature?.infocandidate?.candidate?.file" target="_blank">voir CV</a>
+                        </button>
+                    
+                </div>
+                
+                    <div class="col-md-6">
+                        
+                            <button class="continue-application">
+                                <div>
+                                    <div class="pencil"></div>
+                                    <div class="folder">
+                                        <div class="top">
+                                            <svg viewBox="0 0 24 27">
+                                                <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="paper"></div>
+                                    </div>
+                                </div>
+                                <a [href]="candidature?.lettreDeMotivation" target="_blank">voir Lettre de motivation</a>
+                            </button>
+                        
+                    </div>
+                
+            </div>  
+            
+            <div class="row gx-3 mb-3" *ngIf="candidature?.checked===false">
+                <div class="form-group">
+                    <label for="post">Postes</label>
+                    
+                        <select class="custom-select" formControlName="post" [ngClass]="{'is-invalid':submitted&&specialiteForm.controls['post'].errors}" required>
+                            <option selected disabled value="">Choisissez le poste</option>
+                            <option *ngFor="let specialite of listeSpecialite" [value]="specialite.id" >{{specialite.nom}}</option>
+                        </select>
+                        <div *ngIf="submitted && specialiteForm.controls['post'].errors" class="text-danger mt-1">
+                            post obligatoire
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Annuler</button>
+          <button *ngIf="candidature?.checked===false" type="submit" class="btn btn-primary " data-dismiss="modal" (click)="onSubmit()"  >Enregistrer</button>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>

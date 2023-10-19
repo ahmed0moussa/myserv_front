@@ -19,6 +19,8 @@ import { ApplicationGuardService } from './services/guards/application-guard.ser
 import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
 import{ToastrModule} from 'ngx-toastr'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataTablesModule } from "angular-datatables";
+
 
 library.add(fas);
 

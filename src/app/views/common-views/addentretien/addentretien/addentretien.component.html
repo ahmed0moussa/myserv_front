@@ -1,0 +1,109 @@
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Ajout entretien</h1>
+    </div>
+     <form #f="ngForm" [formGroup]="entretienForm" (ngSubmit)="onSubmit(f)" > 
+        <div class="row">
+            
+                <div class="col-lg-12">
+                    
+                        <!-- form card -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Donné de candidat</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row gx-3 mb-3">
+                                    <div class="form-group col-md-3">
+                                        <label for="lastname">Nom</label>
+                                        <p class = "font-weight-bold">{{candidate?.lastName}}</p>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="firstname">Prenom</label>
+                                        <p class = "font-weight-bold">{{candidate?.firstName}}</p>
+                                    </div> 
+                                    <div class="form-group col-md-3">
+                                        <label for="email">Email</label>
+                                        <p class = "font-weight-bold">{{candidate?.email}}</p>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="phone">Phone</label>
+                                        <p class = "font-weight-bold">{{candidate?.phone}}</p>
+                                    </div>    
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="date">Date d'entretien</label>
+                                        <input type="date" class="form-control"  formControlName="date" [ngClass]="{'is-invalid':submitted&&entretienForm.controls['date'].errors&& entretienForm.controls['date']}" required>
+                                         <div *ngIf="submitted && entretienForm.controls['date'].errors&& entretienForm.controls['date']" class="text-danger mt-1">
+                                            date de l'entretien obligatoire et date future
+                                        </div> 
+                                        
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="time">Heure d'entretien</label>
+                                         <input type="time" class="form-control"  formControlName="time" [ngClass]="{'is-invalid':submitted&&entretienForm.controls['time'].errors}" required>
+                                        <div *ngIf="submitted && entretienForm.controls['time'].errors" class="text-danger mt-1">
+                                            time de entretien obligatoire
+                                        </div> 
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="post">FeedBack</label>
+                                        <select class="custom-select" formControlName="feedback" >
+                                            <option *ngFor="let feedback of listeFeedBack" [value]="feedback"
+                                            [ngClass]="{
+                                                'badge-primary': feedback.nom === 'Validé RH',
+                                                'badge-danger': feedback.nom === 'Non validé RH' || feedback.nom === 'Non validé TECH',
+                                                'badge-success': feedback.nom === 'Recruté',
+                                                'badge-info': feedback.nom === 'Validé TECH',
+                                                'badge-secondary': feedback.nom ==='En coure',
+                                                'badge-light': feedback.nom ==='N\'a pas assisté'
+                                              }" [selected]="candidate?.feedback?.nom === feedback.nom" [ngValue]="feedback" required>{{feedback.nom}}  </option>
+                                        </select>
+                                        <div *ngIf="submitted && entretienForm.controls['feedback'].errors" class="text-danger mt-1">
+                                            Choisissez un feedback obligatoire
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="entretienType">Entretien</label>
+                                        <div>
+                                            <input type="radio" id="rh" name="entretienType" value="rh" formControlName="entretienType" required>
+                                            <label for="rh">RH</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="tech" name="entretienType" value="tech" formControlName="entretienType" required>
+                                            <label for="tech">Tech</label>
+                                        </div>
+                                        <div *ngIf="submitted && entretienForm.controls['entretienType'].errors" class="text-danger mt-1">
+                                            Choisissez un type d'entretien obligatoire
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-row">
+                                    <div class=" form-group col-md-12">
+                                        <label for="comment">Commentaire RH</label>
+                                        <textarea   rows="5" class="form-control" formControlName="commentaire" [value]=""></textarea>
+                                        
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                </div>
+                    <div class="col-lg-6">
+                        
+                      
+                    </div>
+                    <div class="col-lg-12">
+                    <div class="card shadow mb-4 ">
+                        <div class="card-body text-center">
+                            <button type="submit" class="btn btn-primary " >Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+     </form> 
+</div>

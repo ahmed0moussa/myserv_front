@@ -1,9 +1,5 @@
-.custom-file-label {
-    position: absolute;
-    top: 90px; 
-    right: 15px;
-    left: 15px;
-    z-index: 1;
+.form-group {
+    margin-bottom: 0;
 }
 .btn{
 
