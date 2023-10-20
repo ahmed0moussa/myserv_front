@@ -1,0 +1,91 @@
+.button1 {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    
+   }
+   .red{
+    background: red;
+    background: #e62222;
+   }
+   .green{
+    background: #3aa856;
+   }
+   
+   .button1, .button1 span {
+    transition: 200ms;
+   }
+   
+   .button1 .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+   }
+   
+   .button1 .icon {
+    position: absolute;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+   .red .icon {
+    border-left: 1px solid #c41b1b;
+   }
+   .green .icon {
+    border-left: 1px solid #34974d;
+   }
+   .button1 svg {
+    width: 15px;
+    fill: #eee;
+   }
+   .button1 line{
+    width: 15px;
+    color: #eee;
+   }
+   
+   .red:hover {
+    background: #ff3636;
+   }
+   .green:hover {
+    background: #2e8644;
+   }
+   
+   .button1:hover .text {
+    color: transparent;
+   }
+   
+   .button1:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+   }
+   
+   .button1:focus {
+    outline: none;
+   }
+   
+   .button1:active .icon svg {
+    transform: scale(0.8);
+   }
+.btn1{
+   
+    border: 2px solid #24b4fb;
+    background-color: #24b4fb;
+    border-radius: 0.9em;
+    padding: 0.8em 1.2em 0.8em 1em;
+    transition: all ease-in-out 0.2s;
+    font-size: 16px;
+    }
+    .btn1:hover {
+    background-color: #F0782F;
+    border-color:  #FDAA24;
+}

@@ -103,6 +103,20 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'ajoutquestionrh',
+        loadChildren: () =>
+          import(
+            './views/admin-views/add-question-rh/add-question-rh.module'
+          ).then((m) => m.AddQuestionRhModule),
+      },
+      {
+        path: 'ajoutspecialite',
+        loadChildren: () =>
+          import(
+            './views/admin-views/add-specialite/add-specialite.module'
+          ).then((m) => m.AddSpecialiteModule),
+      },
+      {
         path: 'listcandidate/:type/:idtype',
         loadChildren: () =>
           import(
@@ -131,6 +145,7 @@ const routes: Routes = [
             './views/common-views/addentretien/addentretien.module'
           ).then((m) => m.AddentretienModule),
       },
+      
     ],
   },
 ];
