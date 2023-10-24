@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { QuestionRHService } from 'src/app/services/service/question-rh.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class AddQuestionRhComponent {
 idrowdelete!:number;
 myForm:any;
 listequestionRH:any;
-constructor(private questionRHService: QuestionRHService,private formBuilder:FormBuilder){
+idQuestion:any;
+constructor(private questionRHService: QuestionRHService,private formBuilder:FormBuilder,private toastr:ToastrService){
   this.myForm=this.formBuilder.group({
     rows:this.formBuilder.array([
     ])
@@ -53,13 +55,47 @@ addnew(){
   })
   this.items.push(newrow);
 }
-setiddelete(i:number){
+setiddelete(i:number,idQuestion:string){
   this.idrowdelete=i;
+  this.idQuestion=idQuestion;
 }
-deleteRow(){
-  this.items.removeAt(this.idrowdelete)
+deleteRow(){ 
+  
+  if (this.idQuestion) {
+    this.questionRHService.deleteQuestion(this.idQuestion).subscribe(
+      () => {
+        console.log('Question deleted successfully');
+        this.items.removeAt(this.idrowdelete); 
+        this.toastr.success('Question deleted successfully!', 'Success');
+      },
+      (error) => {
+        console.error('Error deleting question', error);
+        this.toastr.error('Question not deleted', 'Error');
+        
+      }
+    );
+  }
 }
 onSubmit(){
-  console.log(this.myForm.value);
+  const questions: any[] = this.myForm.value.rows.map((row: any) => {
+    return { textQuestion: row.textQuestion,id:row.id };
+  });
+
+  // Save all the questions
+  this.questionRHService.saveAllQuestions(questions).subscribe(
+    (response) => {
+      console.log('Questions saved successfully', response);
+      this.findListQuestionRh();
+      this.initializeRows();
+      this.toastr.success('Questions saved successfully!', 'Success');
+    },
+    (error) => {
+      console.error('Error saving questions', error);
+      this.toastr.error('Questions not saved', 'Error');
+      
+    }
+  );
 }
+
+
 }

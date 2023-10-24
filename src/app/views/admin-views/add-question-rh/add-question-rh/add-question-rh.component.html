@@ -16,25 +16,27 @@
         </button>
       </div>
       <div class="card-body">
-        <div class="row"*ngFor="let row of myForm.controls.rows.controls; let i = index" [formGroupName]="i">
-          <div class="col-md-10">
-            Q {{ i + 1 }}
-            <div class="form-group">
-              
-              <textarea class="form-control" cols="30" rows="3" placeholder="" [formControlName]="'textQuestion'">{{ myForm.get('rows').get(i.toString()).get('textQuestion').value }}</textarea>
+        <div formArrayName="rows">
+          <div class="row"*ngFor="let row of myForm.controls.rows.controls; let i = index"  [formGroupName]="i" >
+            <div class="col-md-10">
+              Q {{ i + 1 }}
+              <div class="form-group">
+                
+                <textarea class="form-control" cols="30" rows="3" placeholder="" [formControlName]="'textQuestion'">{{ myForm.get('rows').get(i.toString()).get('textQuestion').value }}</textarea>
+              </div>
             </div>
-          </div>
-          <div class="col-md-2 d-flex align-items-center">
-              <button class="noselect" class="button1 red" data-toggle="modal" data-target="#deleteModal" (click)="setiddelete(i)" >
-                  <span class="text">Delete</span>
-                  <span class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                      <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
-                      </path>
-                    </svg>
-                  </span>
-                </button>
+            <div class="col-md-2 d-flex align-items-center">
+                <button type="button" class="noselect" class="button1 red" data-toggle="modal" data-target="#deleteModal" (click)="setiddelete(i,myForm.get('rows').get(i.toString()).get('id').value)" >
+                    <span class="text">Delete</span>
+                    <span class="icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
+                        </path>
+                      </svg>
+                    </span>
+                  </button>
+            </div>
           </div>
         </div>
       </div>

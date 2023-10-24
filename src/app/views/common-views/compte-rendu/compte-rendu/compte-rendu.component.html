@@ -348,8 +348,8 @@
                     <div class="row" *ngFor="let repenserh of compteRendu.repenseQRHList; let i = index">
                         <div class="col">
                           <div class=" form-group">
-                            <label class="black">Q{{i+1}}.  {{ repenserh.question.textQuestion }}</label>
-                            <textarea [formControlName]="'rhResponse_'+i"  class="form-control" cols="30" rows="3" [placeholder]="repenserh.textRepense" >addsg</textarea>
+                            <label class="black">Q{{i+1}}.  {{ repenserh.question.textQuestion }}</label>{{repenserh.textRepense}}
+                            <textarea [formControlName]="'rhResponse_'+i"  class="form-control" cols="30" rows="3" [placeholder]="repenserh.textRepense" >{{repenserh.textRepense}}</textarea>
                           </div>
                         </div>
                     </div>
