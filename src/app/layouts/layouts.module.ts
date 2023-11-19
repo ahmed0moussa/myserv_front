@@ -11,16 +11,20 @@ import {
 } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CandidatureLayoutComponent } from './candidature-layout/candidature-layout.component';
+import { AuthResetRequestLayoutComponent } from './auth-reset-request-layout/auth-reset-request-layout.component';
+import { RestpasswordLayoutComponent } from './restpassword-layout/restpassword-layout.component';
 
 
 @NgModule({
-  declarations: [AdminLayoutComponent, RhLayoutComponent, AuthLayoutComponent, CandidatureLayoutComponent],
+  declarations: [AdminLayoutComponent, RhLayoutComponent, AuthLayoutComponent, CandidatureLayoutComponent, AuthResetRequestLayoutComponent, RestpasswordLayoutComponent],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FormsModule,
+    
   ],
 })
 export class LayoutsModule {}

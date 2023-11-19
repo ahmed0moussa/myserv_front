@@ -71,7 +71,7 @@ deleteRow(){
       (error) => {
         console.error('Error deleting question', error);
         this.toastr.error('Question not deleted', 'Error');
-        
+        this.items.removeAt(this.idrowdelete);
       }
     );
   }

@@ -45,7 +45,7 @@ export class AuthService {
           return true;
         }),
         catchError((error) => {
-          console.log(error.error.message);
+          console.log(error);
           const errorMessage = error.error.message || 'An unknown error occurred';
           return throwError(errorMessage);
         })
@@ -98,8 +98,10 @@ export class AuthService {
     } else if (roles.includes('ROLE_USER')) {
       this.router.navigateByUrl('/');
     } else {
-      // Handle other roles or no roles
-      // Redirect to a default page or show an error message
+      
     }
   };
+  
+  
+
 }

@@ -126,7 +126,7 @@
                       <input type="password" class="form-control"  formControlName="password"  placeholder="Mot de passe" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['password'].errors&&registrationForm.controls['cpassword'].errors}" required>
                       
                       <div *ngIf="registrationForm.get('cpassword')?.hasError('passwordMismatch')" class="text-danger mt-1">
-                          Passwords do not match.
+                        le mot de passe ne correspond pas.
                         </div> 
                         <div *ngIf="submitted && registrationForm.controls['password'].errors" class="text-danger mt-1">
                           mot de passe obligatoir et la taille doit être comprise entre 6 et 40.
@@ -135,10 +135,10 @@
               </div>
               <div class="col-lg-6">
                   <div class="form-group">
-                      <label for="cpassword">Confirme Mot de passe</label>
-                      <input type="password" class="form-control"  formControlName="cpassword"  placeholder="Confirme mot de passe"[ngClass]="{'is-invalid':submitted&&registrationForm.controls['cpassword'].errors&&registrationForm.controls['cpassword'].errors}" required>
+                      <label for="cpassword">Confirmer Mot de passe</label>
+                      <input type="password" class="form-control"  formControlName="cpassword"  placeholder="Confirmer mot de passe"[ngClass]="{'is-invalid':submitted&&registrationForm.controls['cpassword'].errors&&registrationForm.controls['cpassword'].errors}" required>
                       <div *ngIf="registrationForm.get('cpassword')?.hasError('passwordMismatch')" class="text-danger mt-1">
-                          Passwords do not match.
+                        le mot de passe ne correspond pas.
                         </div>
                   </div>
               </div>

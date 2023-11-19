@@ -94,6 +94,7 @@ deleteRow(){
         
       }
     );
+    
   }
 }
 onSubmit(){

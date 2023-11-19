@@ -7,6 +7,8 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { AddCandidateModule } from './views/rh-views/add-candidate/add-candidate.module';
 import { ApplicationGuardService } from './services/guards/application-guard.service';
 import { CandidatureLayoutComponent } from './layouts/candidature-layout/candidature-layout.component';
+import { AuthResetRequestLayoutComponent } from './layouts/auth-reset-request-layout/auth-reset-request-layout.component';
+import { RestpasswordLayoutComponent } from './layouts/restpassword-layout/restpassword-layout.component';
 
 
 const routes: Routes = [
@@ -18,6 +20,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: AuthLayoutComponent,
+  },
+  {
+    path: 'restpassword/:token',
+    component: RestpasswordLayoutComponent,
+  },
+  {
+    path: 'forgetpassword',
+    component: AuthResetRequestLayoutComponent,
   },
 
   {

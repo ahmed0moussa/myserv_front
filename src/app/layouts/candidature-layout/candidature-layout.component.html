@@ -176,7 +176,7 @@
                         <div class="form-group ">
                             <input type="file" #fileInput class="custom-file-input" id="customFile" (change)="onCvSelected($event)" formControlName="cv"
                             [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['cv'].errors}">
-                            <label class="custom-file-label" for="customFile">{{ selectedCvName || 'Choose cv' }}</label>
+                            <label class="custom-file-label" for="customFile">{{ selectedCvName || 'deposer un fichier ' }}</label>
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                     <div class="col-md-12"> 
                         <div class="form-group ">
                             <input type="file" #lettreDeMotivationInput  class="custom-file-input" id="customFile" (change)="onLettreSelected($event)" formControlName="lettreDeMotivation">
-                            <label class="custom-file-label" for="customFile">{{ selectedLettreName || 'lettre De Motivation' }}</label>
+                            <label class="custom-file-label" for="customFile">{{ selectedLettreName || 'deposer un fichier' }}</label>
                         </div>
                     </div> 
                 </div>

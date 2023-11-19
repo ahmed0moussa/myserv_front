@@ -1,4 +1,202 @@
+<div class="row">
+
+    <!-- Nombre candidats Recruté Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Nombre candidats Recruté</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{getCountsByFeedbackType("Recruté")}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Nombre candidats Validé TECH</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{getCountsByFeedbackType("Validé TECH")}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Nombre candidats Validé RH</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{getCountsByFeedbackType("Validé RH")}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Nombre candidats En coure</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{getCountsByFeedbackType("En coure")}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <!-- Nombre candidats Recruté Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Nombre candidats Non validé TECH</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{getCountsByFeedbackType("Non validé TECH")}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Nombre candidats Non validé RH</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{getCountsByFeedbackType("Non validé RH")}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-light shadow h-100 py-2 bg-dark">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-light text-uppercase mb-1">
+                            Nombre candidats N'a pas assisté</div>
+                        <div class="h5 mb-0 font-weight-bold text-light-800">{{getCountsByFeedbackType("N'a pas assisté")}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
 <div class="calendar-wrapper d-lg-flex gap-4">
 
-
+    <div class="w-100">
+        <div class="card card-h-100">
+            <div class="">
+                <div id="calendar">
+                    <full-calendar [options]="calendarOptions" ></full-calendar>
+                </div>
+            </div>
+        </div>
+    </div><!-- end col -->
 </div>
+<!--end row-->
+
+<div style='clear:both'></div>
+
+<!-- Add New Event MODAL -->
+<div bsModal #eventModal="bs-modal" class="modal fade" id="event-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header p-3 bg-info-subtle">
+                <h5 class="modal-title" id="modal-title">Event</h5>
+                <button type="button" class="close" aria-label="Close" (click)="eventModal.hide()"><span aria-hidden="true">&times;</span></button>
+                
+            </div>
+            <div class="modal-body p-4">
+                    
+                    <div class="event-details">
+                        <div class="d-flex mb-2">
+                            <div class="flex-grow-1 d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h6 class="d-block fw-semibold mb-0" id="event-start-date-tag"></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-grow-1 d-flex ">
+                                <p >prenom et nom: </p>
+                                <p class="font-weight-bold px-2"><span id="event-fullnamecandidate-tag"></span>  </p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-grow-1 d-flex ">
+                                <p >email :</p>
+                                <p class="font-weight-bold px-2"><span id="event-email-tag"></span>  </p>
+                                <p class="pl-2">Phone :</p>
+                                <p class="font-weight-bold px-2"><span id="event-phone-tag"></span>  </p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-grow-1 d-flex ">
+                                <p >Recruteur : </p>
+                                <p class="font-weight-bold px-2"><span id="event-fullnameRecuteur-tag"></span>  </p>
+                                <p class="pl-2">Specialté :</p>
+                                <p class="font-weight-bold px-2"><span id="event-specialite-tag"></span>  </p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-grow-1 d-flex justify-content-between">
+                                <div class=" d-flex">
+                                <p >Feedback : </p>
+                                <p class="font-weight-bold px-2"><span id="event-feedback-tag"></span>  </p>
+                                </div>
+                                <div>
+                                <button type="button" class="view-more " (click)="navigateToPage(editEvent)">
+                                    <span>Voir plus</span>
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                 
+                    
+                
+            </div>
+        </div> <!-- end modal-content-->
+    </div> <!-- end modal dialog-->
+</div> <!-- end modal-->
+<!-- end modal-->

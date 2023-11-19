@@ -57,7 +57,7 @@
                                     <div class="form-group col-lg-12 mx-1">
                                         <input type="file" #fileInput class="custom-file-input" id="customFile" (change)="onFileSelected($event)" formControlName="cv"
                                         [ngClass]="{'is-invalid': submitted && addcandidateForm.controls['cv'].errors}">
-                                        <label class="custom-file-label" for="customFile">{{ selectedFileName || 'Choose cv' }}</label>
+                                        <label class="custom-file-label" for="customFile">{{ selectedFileName || 'déposer un cv ' }}</label>
                                         <div class="text-danger mt-1" *ngIf="submitted && addcandidateForm.controls['cv'].errors">
                                             CV obligatoire
                                         </div>

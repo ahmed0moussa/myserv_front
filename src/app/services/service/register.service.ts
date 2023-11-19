@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { loggedin } from '../models/loggedin';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { PasswordRequestUtil } from '../models/PasswordRequestUtil';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,13 @@ export class RegisterService {
   }
   updateUser(UserId:string,updatedUser: any){
     return this.Http.put<loggedin>(this.baseur+"users/"+UserId, updatedUser);
+  }
+  resetPasswordRequest(email: string): Observable<string> {
+    const url = `${this.baseur}auth/password-reset-request?email=${email}`;
+    return this.Http.post<string>(url, {}, { responseType: 'json' });
+  }
+  resetPasswordWithToken(model:PasswordRequestUtil){
+    return this.Http.post<PasswordRequestUtil>(this.baseur+"auth/reset-password",model)
   }
 
 }
