@@ -31,10 +31,10 @@
                             <label for="Postes">feedback</label>
                             <span class="form-control badge badge-pill " [ngClass]="{
                                 'badge-primary': entretien.feedback?.nom === 'Validé RH',
-                                'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé TECH',
+                                'badge-danger': entretien.feedback?.nom === 'Non validé RH' || entretien.feedback?.nom === 'Non validé tech',
                                 'badge-success': entretien.feedback?.nom === 'Recruté',
-                                'badge-info': entretien.feedback?.nom === 'Validé TECH',
-                                'badge-secondary': entretien.feedback?.nom ==='En coure',
+                                'badge-info': entretien.feedback?.nom === 'Validé tech',
+                                'badge-secondary': entretien.feedback?.nom ==='En cours',
                                 'badge-light': entretien.feedback?.nom ==='N\'a pas assisté'
                               }">{{entretien.feedback?.nom}}</span>
                         </div>
@@ -86,16 +86,12 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="row gx-3 mb-3">
-                    <!-- Form Group (last name)-->
+                    <!-- Form Group (full name)-->
                     <div class="col-md-6">
-                        <label class="small mb-1"  for="inputLastName">Nom</label>
-                        <input class="form-control"  type="text" formControlName="lastName"  placeholder="nom" [value]="candidate?.lastName">
+                        <label class="small mb-1"  for="inputfullName">Nom et Prenom</label>
+                        <input class="form-control"  type="text" formControlName="fullName"  placeholder="nom" [value]="candidate?.fullName">
                     </div>
-                    <!-- Form Group (first name)-->
-                    <div class="col-md-6">
-                        <label class="small mb-1" for="inputFirstName">Prenom</label>
-                        <input class="form-control"  type="text" formControlName="firstName" placeholder="prenom" [value]="candidate?.firstName">
-                    </div>
+                    
                     
                 </div>
                 <div class="row gx-3 mb-3">
@@ -121,10 +117,10 @@
                         <label for="Postes">feedback</label>
                         <span class="form-control badge badge-pill " [ngClass]="{
                             'badge-primary': candidate?.feedback?.nom === 'Validé RH',
-                            'badge-danger': candidate?.feedback?.nom === 'Non validé RH' || candidate?.feedback?.nom === 'Non validé TECH',
+                            'badge-danger': candidate?.feedback?.nom === 'Non validé RH' || candidate?.feedback?.nom === 'Non validé tech',
                             'badge-success': candidate?.feedback?.nom === 'Recruté',
-                            'badge-info': candidate?.feedback?.nom === 'Validé TECH',
-                            'badge-secondary': candidate?.feedback?.nom ==='En coure',
+                            'badge-info': candidate?.feedback?.nom === 'Validé tech',
+                            'badge-secondary': candidate?.feedback?.nom ==='En cours',
                             'badge-light': candidate?.feedback?.nom ==='N\'a pas assisté'
                           }">{{candidate?.feedback?.nom}}</span>
                     </div>

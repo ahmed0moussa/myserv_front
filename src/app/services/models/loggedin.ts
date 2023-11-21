@@ -1,8 +1,8 @@
 export interface loggedin {
   id?: string;
-  username?: string;
-  firstName?: string;
-  lastName?: string;
+ 
+  fullName?: string;
+  
   email?: string;
   roles?: string[];
   accessToken?: string;

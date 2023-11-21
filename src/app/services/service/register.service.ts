@@ -11,7 +11,7 @@ export class RegisterService {
   baseur="http://localhost:8080/api/"
   constructor(private Http: HttpClient) {}
   registerRh(model:loggedin){
-    return this.Http.post<loggedin>(this.baseur+"auth/signup/user",model);
+    return this.Http.post<loggedin>(this.baseur+"signup/user",model);
   }
   fiddalluser(){
     return this.Http.get<loggedin>(this.baseur+"users/all");

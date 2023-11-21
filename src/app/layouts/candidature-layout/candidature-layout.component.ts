@@ -34,8 +34,7 @@ export class CandidatureLayoutComponent {
     private candidatureService :CandidatureService,
     private router: Router) {
     this.addcandidateurForm = this.formBuilder.group({
-      lastName: ['', Validators.required],
-      firstName: ['', Validators.required],
+      fullName: ['', Validators.required],
       cv: ['',Validators.required],
       Phone: ['', Validators.required],
       Address: ['', Validators.required],
@@ -84,8 +83,7 @@ export class CandidatureLayoutComponent {
     if (this.addcandidateurForm.valid) {
     
       // map infocandidate
-      this.candidate.lastName=formValues.lastName;
-      this.candidate.firstName=formValues.firstName
+      this.candidate.fullName=formValues.fullName;
       this.candidate.phone=formValues.Phone;
       this.candidate.email=formValues.Email;
 

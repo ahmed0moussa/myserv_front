@@ -5,8 +5,7 @@ import { Specialite } from "./specialite";
 
 export class Candidate {
     id!: string;
-    lastName!: string;
-    firstName!: string;
+    fullName!: string;
     email!: string;
     phone!: string;
     recruteur!: loggedin;

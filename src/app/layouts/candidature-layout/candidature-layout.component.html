@@ -12,16 +12,17 @@
          
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
-                <!-- Form Group (last name)-->
+                <!-- Form Group (fullName)-->
                 <div class="col-md-6">
-                    <label class="small mb-1"  for="inputLastName">Nom*</label>
-                    <input class="form-control"  type="text" formControlName="lastName"  placeholder="nom" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['lastName'].errors}">
+                    <label class="small mb-1"  for="inputfullName">Nom et Prenom*</label>
+                    <input class="form-control"  type="text" formControlName="fullName"  placeholder="nom et prenom" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['fullName'].errors}">
                 </div>
-                <!-- Form Group (first name)-->
+                <!-- Form Group (email address)-->
                 <div class="col-md-6">
-                    <label class="small mb-1" for="inputFirstName">Prenom*</label>
-                    <input class="form-control"  type="text" formControlName="firstName" placeholder="prenom" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['firstName'].errors}">
+                    <label class="small mb-1" for="inputEmailAddress">Adresse mail*</label>
+                    <input class="form-control" formControlName="Email" id="inputEmailAddress" type="email" placeholder="name@example.com" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Email'].errors}">
                 </div>
+                
                 
             </div>
             <!-- Form Row        -->
@@ -38,12 +39,8 @@
                 </div>
             </div>
             <div class="row gx-3 mb-3">
-                <!-- Form Group (email address)-->
-                <div class="col-md-6">
-                    <label class="small mb-1" for="inputEmailAddress">Adresse mail*</label>
-                    <input class="form-control" formControlName="Email" id="inputEmailAddress" type="email" placeholder="name@example.com" value="" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Email'].errors}">
-                </div>
-                <div class="col-md-2">
+                
+                <div class="col-md-3">
                     <!-- Form Group (Permis)-->
                     <label class="small mb-1" for="inputAge">Permis</label>
                     <select class="form-control" formControlName="Permit" name="Status">
@@ -53,12 +50,12 @@
                     </select>
                 </div>
                 <!-- Form Group (age)-->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label class="small mb-1" for="inputAge">Âge*</label>
                     <input class="form-control" formControlName="Age" type="number" placeholder="Âge " [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Age'].errors}">
                 </div>
                 <!-- Form Group (Status)-->
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <!-- Form Group (Status)-->
                     <label class="small mb-1" for="inputStatus ">Votre situation familiale*</label>
                     <select class="form-control" formControlName="Status" name="Status" [ngClass]="{'is-invalid': submitted && addcandidateurForm.controls['Status'].errors}">

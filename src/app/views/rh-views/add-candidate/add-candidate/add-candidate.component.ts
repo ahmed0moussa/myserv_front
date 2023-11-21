@@ -47,8 +47,8 @@ export class AddCandidateComponent {
     
     this.findListSpecialite();
     this.addcandidateForm=this.formBuilder.group({
-      lastName:['',Validators.required],
-      firstName:['',Validators.required],
+      fullName:['',Validators.required],
+      
       email:['',Validators.required],
       date:['',Validators.required],
       time:['',Validators.required],
@@ -74,8 +74,7 @@ export class AddCandidateComponent {
     
     this.submitted = true;
     const formData = this.addcandidateForm.value;
-    this.candidate.firstName=formData.firstName;
-    this.candidate.lastName=formData.lastName;
+    this.candidate.fullName=formData.fullName;
     this.candidate.email=formData.email;
     
     this.entretien.date=formData.date;

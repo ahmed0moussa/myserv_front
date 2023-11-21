@@ -14,8 +14,8 @@
                 <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nom</th>
-                            <th>Prenom</th>
+                            <th>Nom et Prenom</th>
+                            
                             <th>Email</th>
                             
                       
@@ -27,8 +27,8 @@
                       <tbody>
                           <tr *ngFor="let user of listeUser" > 
                             
-                              <td>{{user.lastName}}</td>
-                              <td>{{user.firstName}}</td>
+                              
+                              <td>{{user.fullName}}</td>
                               <td>{{user.email}}</td>
                               <!-- <td><input type="password" class="form-control"  formControlName="password"  placeholder="Mot de passe" ></td>
                               <td><input type="password" class="form-control"  formControlName="cpassword"  placeholder="Confirme mot de passe"></td> -->
@@ -88,27 +88,19 @@
         <div class="modal-body">
           <form [formGroup]="registrationForm">
             <div class="row">
-              <div class="col-lg-6">
+              
+              <div class="col-lg-12">
                   <div class="form-group">
-                      <label for="lastname">Nom</label>
-                      <input type="text" class="form-control" [value]="user?.lastName" formControlName="lastName"  placeholder="Nom rh" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['lastName'].errors}" required>
-                      <div *ngIf="submitted && registrationForm.controls['lastName'].errors" class="text-danger mt-1">
-                          nom obligatoire
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-6">
-                  <div class="form-group">
-                      <label for="lastname">Prenom</label>
-                      <input type="text" class="form-control" [value]="user?.firstName" formControlName="firstName"  placeholder="Prenom rh" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['firstName'].errors}" required>
-                      <div *ngIf="submitted && registrationForm.controls['firstName'].errors" class="text-danger mt-1">
-                          prenom obligatoire
+                      <label for="lastname">Prenom et Nom</label>
+                      <input type="text" class="form-control" [value]="user?.fullName" formControlName="fullName"  placeholder="Prenom et Nom" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['fullName'].errors}" required>
+                      <div *ngIf="submitted && registrationForm.controls['fullName'].errors" class="text-danger mt-1">
+                          prenom et Nom obligatoire
                       </div>
                   </div>
               </div>
           </div>
           <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                   <div class="form-group">
                       <label for="email">Email</label>
                       <input type="email" class="form-control" [value]="user?.email" formControlName="email"  placeholder="Email" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['email'].errors}" required>

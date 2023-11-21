@@ -20,8 +20,8 @@ export class AddUserRhComponent {
      ){}
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
-      lastName: ['', Validators.required],
-      firstName: ['', Validators.required],
+      
+      fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
       cpassword: ['', Validators.required]

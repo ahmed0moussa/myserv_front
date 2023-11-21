@@ -27,21 +27,21 @@
                     <tbody>
                         
                         <tr *ngFor="let candidate of listeCandidate">
-                            <td>{{candidate.lastName}} {{candidate.firstName}}</td> 
+                            <td>{{candidate.fullName}}</td> 
                             <td>{{candidate.email}} </td>
                             <td *ngIf="candidate.listEntretien && candidate.listEntretien.length > 0">{{candidate.listEntretien[0].date}}</td>
                             <td *ngIf="!candidate.listEntretien || candidate.listEntretien.length === 0">No entretien</td>
                             <td><span class="badge badge-pill " [ngClass]="{
                                 'badge-primary': candidate?.feedback?.nom === 'Validé RH',
-                                'badge-danger': candidate?.feedback?.nom === 'Non validé RH' || candidate?.feedback?.nom === 'Non validé TECH',
+                                'badge-danger': candidate?.feedback?.nom === 'Non validé RH' || candidate?.feedback?.nom === 'Non validé tech',
                                 'badge-success': candidate?.feedback?.nom === 'Recruté',
-                                'badge-info': candidate?.feedback?.nom === 'Validé TECH',
-                                'badge-secondary': candidate?.feedback?.nom ==='En coure',
+                                'badge-info': candidate?.feedback?.nom === 'Validé tech',
+                                'badge-secondary': candidate?.feedback?.nom ==='En cours',
                                 'badge-light': candidate?.feedback?.nom ==='N\'a pas assisté'
                               }">{{candidate?.feedback?.nom}}</span></td>
                               <td *ngIf="candidate.listEntretien && candidate.listEntretien.length > 0">{{candidate.listEntretien[0].commentaire}}</td>
                               <td *ngIf="!candidate.listEntretien || candidate.listEntretien.length === 0">No entretien</td>
-                             <td>{{candidate?.recruteur?.lastName}} {{candidate?.recruteur?.firstName}}</td> 
+                             <td>{{candidate?.recruteur?.fullName}}</td> 
                             <td>
                                 
                                     <button class="view-more " [routerLink]="data.roles.includes('ROLE_ADMIN') ? ['/admin/compterendu', candidate.id] : ['/compterendu', candidate.id]">

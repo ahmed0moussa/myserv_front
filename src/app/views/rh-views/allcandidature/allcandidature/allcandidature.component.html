@@ -26,7 +26,7 @@
                     <tbody>
                         
                       <tr *ngFor="let candidatureone of uncheckedCandidatures">
-                        <td>{{candidatureone?.infocandidate?.candidate?.lastName}} {{candidatureone?.infocandidate?.candidate?.firstName}}</td>
+                        <td>{{candidatureone?.infocandidate?.candidate?.fullName}} </td>
                         <td>{{candidatureone?.infocandidate?.candidate?.email}}</td>
                         <td>{{candidatureone?.infocandidate?.candidate?.phone}}</td>
                         <td>{{candidatureone?.infocandidate?.yearsOfExperience}}</td>
@@ -73,7 +73,7 @@
                     <tbody>
                         
                         <tr *ngFor="let candidaturetwo of checkedCandidatures">
-                            <td>{{candidaturetwo?.infocandidate?.candidate?.lastName}} {{candidaturetwo?.infocandidate?.candidate?.firstName}}</td>
+                            <td>{{candidaturetwo?.infocandidate?.candidate?.fullName}}</td>
                             <td>{{candidaturetwo?.infocandidate?.candidate?.email}}</td>
                             <td>{{candidaturetwo?.infocandidate?.candidate?.phone}}</td>
                             <td>{{candidaturetwo?.infocandidate?.yearsOfExperience}}</td>

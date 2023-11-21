@@ -33,8 +33,18 @@ export class AuthService {
         map((data) => {
           var token = data as TokenModel;
           var user = data as loggedin;
+          console.log(user)
+          const connectedUser = {
+            id: user.id,
+            email: user.email,
+            fullName: user.fullName,
+  
+            roles: user.roles,
+            token: token.token,
+            tokenType: 'Bearer'
+        };
           localStorage.setItem('token', JSON.stringify(token));
-          localStorage.setItem('connecteduser', JSON.stringify(user));
+          localStorage.setItem('connecteduser', JSON.stringify(connectedUser));
 
           var userInfo = this.jwtService.decodeToken(token.token!!) as loggedin;
 

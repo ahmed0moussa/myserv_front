@@ -81,8 +81,8 @@ export class CompteRenduComponent {
       this.findListFeedback();
       
       this.compteRenduForm = this.formBuilder.group({
-        lastName: ["", Validators.required],
-        firstName: ['', Validators.required],
+        
+        fullName: ['', Validators.required],
         date: [''],  // You can add validation here if needed
         time: [''],
         feedback: [''],
@@ -323,8 +323,7 @@ export class CompteRenduComponent {
     }
     // map candidate properties
     if(formValues.feedback){this.candidate.feedback = formValues.feedback;}
-    if(formValues.lastName){this.candidate.lastName = formValues.lastName;}
-    if(formValues.firstName){this.candidate.firstName = formValues.firstName;}
+    if(formValues.fullName){this.candidate.fullName = formValues.fulName;}
     if(formValues.email){this.candidate.email = formValues.email;}
     if(formValues.phone){this.candidate.phone = formValues.phone;}
     

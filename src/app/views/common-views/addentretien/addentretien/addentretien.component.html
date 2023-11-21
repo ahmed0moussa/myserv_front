@@ -15,13 +15,10 @@
                             <div class="card-body">
                                 <div class="row gx-3 mb-3">
                                     <div class="form-group col-md-3">
-                                        <label for="lastname">Nom</label>
-                                        <p class = "font-weight-bold">{{candidate?.lastName}}</p>
+                                        <label for="lastname">Nom et Prenom</label>
+                                        <p class = "font-weight-bold">{{candidate?.fullName}}</p>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="firstname">Prenom</label>
-                                        <p class = "font-weight-bold">{{candidate?.firstName}}</p>
-                                    </div> 
+                                   
                                     <div class="form-group col-md-3">
                                         <label for="email">Email</label>
                                         <p class = "font-weight-bold">{{candidate?.email}}</p>
@@ -54,10 +51,10 @@
                                             <option *ngFor="let feedback of listeFeedBack" [value]="feedback"
                                             [ngClass]="{
                                                 'badge-primary': feedback.nom === 'Validé RH',
-                                                'badge-danger': feedback.nom === 'Non validé RH' || feedback.nom === 'Non validé TECH',
+                                                'badge-danger': feedback.nom === 'Non validé RH' || feedback.nom === 'Non validé tech',
                                                 'badge-success': feedback.nom === 'Recruté',
-                                                'badge-info': feedback.nom === 'Validé TECH',
-                                                'badge-secondary': feedback.nom ==='En coure',
+                                                'badge-info': feedback.nom === 'Validé tech',
+                                                'badge-secondary': feedback.nom ==='En cours',
                                                 'badge-light': feedback.nom ==='N\'a pas assisté'
                                               }" [selected]="candidate?.feedback?.nom === feedback.nom" [ngValue]="feedback" required>{{feedback.nom}}  </option>
                                         </select>

@@ -16,21 +16,12 @@
                             <div class="card-body ">
                                 <div class="form-row pb-3">
                                     <div class="form-group col-lg-6">
-                                        <label for="lastname">Nom</label>
-                                        <input type="text" class="form-control"  formControlName="lastName" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['lastName'].errors}" placeholder="Nom candidat" required>
-                                        <div *ngIf="submitted && addcandidateForm.controls['lastName'].errors" class="text-danger mt-1">
+                                        <label for="fullName">Nom et Prenom</label>
+                                        <input type="text" class="form-control"  formControlName="fullName" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['fullName'].errors}" placeholder="Nom candidat" required>
+                                        <div *ngIf="submitted && addcandidateForm.controls['fullName'].errors" class="text-danger mt-1">
                                             nom obligatoire
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-6">
-                                        <label for="firstname">Prenom</label>
-                                        <input type="text" class="form-control"  placeholder="Prenom candidat" formControlName="firstName" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['firstName'].errors}" required >
-                                        <div *ngIf="submitted && addcandidateForm.controls['firstName'].errors" class="text-danger mt-1">
-                                            prenom obligatoire
-                                        </div>   
-                                    </div>
-                                </div>
-                                <div class="form-row">
                                     <div class="form-group col-lg-6">
                                         <label for="email">Email</label>
                                         <input type="text" class="form-control"  formControlName="email" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['email'].errors}" placeholder="email candidat" required>
@@ -38,6 +29,9 @@
                                             nom obligatoire
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-row">
+                                    
                                     <div class="form-group col-lg-6">
                                         <label for="post">Postes</label>
                                     <select class="custom-select" formControlName="post" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['post'].errors}" required>

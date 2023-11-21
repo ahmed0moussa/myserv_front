@@ -75,10 +75,10 @@ export class DashboardComponent {
         
         for (let j = 0; j < candidate.listEntretien.length; j++) {
           const interview = candidate.listEntretien[j];
-          const recruiterName = candidate.recruteur.firstName + ' ' + candidate.recruteur.lastName;
+          const recruiterName = ""+candidate.recruteur.fullName;
           const color = this.generateColorForRecruiter(recruiterName);
           this.calendarEvents.push({
-            title: ' entretien '+ interview.entretienType+'| '+candidate.recruteur.firstName+' '+candidate.recruteur.lastName,
+            title: ' entretien '+ interview.entretienType+'| '+candidate.recruteur.fullName,
             start: interview.date+"T"+interview.time, 
             
             backgroundColor: color,
@@ -87,8 +87,8 @@ export class DashboardComponent {
             extendedProps: {
               candidate: candidate,
               time:interview.time,
-              fullnameCandidate:candidate.firstName+' '+candidate.lastName,
-              fullnameRecuteur:candidate.recruteur.firstName+' '+candidate.recruteur.lastName,
+              fullnameCandidate:candidate.fullName,
+              fullnameRecuteur:candidate.recruteur.fullName,
               specialite:candidate.specialite.nom,
               email:candidate.email, 
               phone:candidate.phone,

@@ -11,26 +11,16 @@
                 </div>
                 <div class="card-body ">
                     <div class="row">
+                        
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="lastname">Nom</label>
-                                <input type="text" class="form-control"  formControlName="lastName"  placeholder="Nom d'utilisateur" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['lastName'].errors}" required>
-                                <div *ngIf="submitted && registrationForm.controls['lastName'].errors" class="text-danger mt-1">
-                                    nom obligatoire
+                                <label for="lastname">Prenom et Nom</label>
+                                <input type="text" class="form-control"  formControlName="fullName"  placeholder="Prenom et Nom d'utilisateur" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['fullName'].errors}" required>
+                                <div *ngIf="submitted && registrationForm.controls['fullName'].errors" class="text-danger mt-1">
+                                    Prenom et Nom obligatoire
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="lastname">Prenom</label>
-                                <input type="text" class="form-control"  formControlName="firstName"  placeholder="Prenom d'utilisateur" [ngClass]="{'is-invalid':submitted&&registrationForm.controls['firstName'].errors}" required>
-                                <div *ngIf="submitted && registrationForm.controls['firstName'].errors" class="text-danger mt-1">
-                                    prenom obligatoire
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -40,8 +30,8 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
+                    
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
