@@ -394,10 +394,10 @@
                                         <option *ngFor="let feedback of listeFeedBack" [value]="feedback"
                                         [ngClass]="{
                                             'badge-primary': feedback.nom === 'Validé RH',
-                                            'badge-danger': feedback.nom === 'Non validé RH' || feedback.nom === 'Non validé TECH',
+                                            'badge-danger': feedback.nom === 'Non validé RH' || feedback.nom === 'Non validé tech',
                                             'badge-success': feedback.nom === 'Recruté',
-                                            'badge-info': feedback.nom === 'Validé TECH',
-                                            'badge-secondary': feedback.nom ==='En coure',
+                                            'badge-info': feedback.nom === 'Validé tech',
+                                            'badge-secondary': feedback.nom ==='En cours',
                                             'badge-light': feedback.nom ==='N\'a pas assisté'
                                           }" [selected]="entretien.feedback?.nom === feedback.nom" [ngValue]="feedback">{{feedback.nom}} </option>
                                     </select>
