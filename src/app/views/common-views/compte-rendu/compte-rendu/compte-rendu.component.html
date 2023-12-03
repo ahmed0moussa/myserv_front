@@ -18,7 +18,7 @@
                     'btn-success': oneEntretien.feedback?.nom === 'Recruté',
                     'btn-info': oneEntretien.feedback?.nom === 'Validé TECH',
                     'btn-secondary': oneEntretien.feedback?.nom ==='En coure',
-                    'btn-light': oneEntretien.feedback?.nom ==='N\'a pas assisté'
+                    'btn-light': oneEntretien.feedback?.nom ==='Absent'
                   }"title='entretien {{oneEntretien.entretienType }} | {{oneEntretien.feedback?.nom}}' (click)="findEntretienbyId(oneEntretien.id,i)" >{{oneEntretien.date | date:'dd/MM/yyyy'}}</button>
                 
             </div>
@@ -35,7 +35,7 @@
                                 'badge-success': entretien.feedback?.nom === 'Recruté',
                                 'badge-info': entretien.feedback?.nom === 'Validé tech',
                                 'badge-secondary': entretien.feedback?.nom ==='En cours',
-                                'badge-light': entretien.feedback?.nom ==='N\'a pas assisté'
+                                'badge-light': entretien.feedback?.nom ==='Absent'
                               }">{{entretien.feedback?.nom}}</span>
                         </div>
                         <div class=" form-group col-md-4">
@@ -121,18 +121,18 @@
                             'badge-success': candidate?.feedback?.nom === 'Recruté',
                             'badge-info': candidate?.feedback?.nom === 'Validé tech',
                             'badge-secondary': candidate?.feedback?.nom ==='En cours',
-                            'badge-light': candidate?.feedback?.nom ==='N\'a pas assisté'
+                            'badge-light': candidate?.feedback?.nom ==='Absent'
                           }">{{candidate?.feedback?.nom}}</span>
                     </div>
                     <div class=" form-group col-md-4">
                         <label for="Recruteur">Recruteur</label>
-                        <input type="text" class="form-control" disabled [value]="candidate?.recruteur?.firstName+' '+candidate?.recruteur?.lastName">
+                        <input type="text" class="form-control" disabled [value]="candidate?.recruteur?.fullName">
                     </div>
                 </div>
                 <div class="row gx-3 mb-3 ">
                     <div class="form-group col-md-4 d-flex flex-column">
                         <label for="cr">Compte Rendu</label>
-                            <button class=" continue-application">
+                            <button type="button" class=" continue-application">
                                 
                                 <div>
                                     <div class="pencil"></div>
@@ -398,7 +398,7 @@
                                             'badge-success': feedback.nom === 'Recruté',
                                             'badge-info': feedback.nom === 'Validé tech',
                                             'badge-secondary': feedback.nom ==='En cours',
-                                            'badge-light': feedback.nom ==='N\'a pas assisté'
+                                            'badge-light': feedback.nom ==='Absent'
                                           }" [selected]="entretien.feedback?.nom === feedback.nom" [ngValue]="feedback">{{feedback.nom}} </option>
                                     </select>
                           </div>

@@ -37,7 +37,7 @@
                                 'badge-success': candidate?.feedback?.nom === 'Recruté',
                                 'badge-info': candidate?.feedback?.nom === 'Validé tech',
                                 'badge-secondary': candidate?.feedback?.nom ==='En cours',
-                                'badge-light': candidate?.feedback?.nom ==='N\'a pas assisté'
+                                'badge-light': candidate?.feedback?.nom ==='Absent'
                               }">{{candidate?.feedback?.nom}}</span></td>
                               <td *ngIf="candidate.listEntretien && candidate.listEntretien.length > 0">{{candidate.listEntretien[0].commentaire}}</td>
                               <td *ngIf="!candidate.listEntretien || candidate.listEntretien.length === 0">No entretien</td>

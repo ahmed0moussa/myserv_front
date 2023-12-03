@@ -17,9 +17,9 @@
                                 <div class="form-row pb-3">
                                     <div class="form-group col-lg-6">
                                         <label for="fullName">Nom et Prenom</label>
-                                        <input type="text" class="form-control"  formControlName="fullName" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['fullName'].errors}" placeholder="Nom candidat" required>
+                                        <input type="text" class="form-control"  formControlName="fullName" [ngClass]="{'is-invalid':submitted&&addcandidateForm.controls['fullName'].errors}" placeholder="Nom et Prenom du candidat" required>
                                         <div *ngIf="submitted && addcandidateForm.controls['fullName'].errors" class="text-danger mt-1">
-                                            nom obligatoire
+                                            nom et prenom obligatoire
                                         </div>
                                     </div>
                                     <div class="form-group col-lg-6">

@@ -51,7 +51,9 @@ export class DashboardComponent {
         initialView: 'dayGridMonth',
         events: this.calendarEvents,
         
+        
       };
+      console.log(this.calendarEvents)
     }, 1200);
     
    
@@ -68,6 +70,7 @@ export class DashboardComponent {
     let idCount = 1;
     this.candidateService.getAllCandidates().subscribe((data: Candidate[]) => {
       this.listeCandidate = data;
+      
       this.listeCandidate.reverse();
   
       for (let i = 0; i < data.length; i++) {
@@ -208,7 +211,7 @@ export class DashboardComponent {
   
 
   getCountsByFeedbackType(feedbackType: string): number {
-    return this.listeCandidate.filter(candidate => candidate.feedback.nom === feedbackType).length;
+    return this.listeCandidate.filter(candidate => candidate?.feedback?.nom === feedbackType).length;
   }
 
 

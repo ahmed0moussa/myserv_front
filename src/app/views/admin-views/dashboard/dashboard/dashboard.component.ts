@@ -207,7 +207,7 @@ calendarEvents: EventInput[]=[
   
 
   getCountsByFeedbackType(feedbackType: string): number {
-    return this.listeCandidate.filter(candidate => candidate.feedback.nom === feedbackType).length;
+    return this.listeCandidate.filter(candidate => candidate?.feedback?.nom === feedbackType).length;
   }
 
 }

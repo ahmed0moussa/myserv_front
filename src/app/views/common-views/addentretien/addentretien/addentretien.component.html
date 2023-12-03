@@ -55,7 +55,7 @@
                                                 'badge-success': feedback.nom === 'Recruté',
                                                 'badge-info': feedback.nom === 'Validé tech',
                                                 'badge-secondary': feedback.nom ==='En cours',
-                                                'badge-light': feedback.nom ==='N\'a pas assisté'
+                                                'badge-light': feedback.nom ==='Absent'
                                               }" [selected]="candidate?.feedback?.nom === feedback.nom" [ngValue]="feedback" required>{{feedback.nom}}  </option>
                                         </select>
                                         <div *ngIf="submitted && entretienForm.controls['feedback'].errors" class="text-danger mt-1">
